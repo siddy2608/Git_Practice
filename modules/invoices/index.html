@@ -24,48 +24,663 @@
 </head>
 <body>
 
-  <main class="invoices-card">
+  <div class="invoices-container">
+
+    <!-- Top Command Header -->
     <header class="invoices-header">
       <div class="invoices-title-box">
-        <h2>Invoice Management</h2>
+        <h2>
+          <span>Invoice Management</span>
+          <span class="badge badge-sprint" style="font-size: 0.75rem; vertical-align: middle;">Financial Engine</span>
+        </h2>
         <p class="invoices-subtitle">Tax invoice issuance, client delivery dispatch, PDF generation, credit notes, and invoice lifecycle.</p>
       </div>
-      <div>
-        <span class="badge badge-sprint">Sprint 2</span>
+
+      <div class="header-actions">
+        <!-- Indian Currency Standard Pill -->
+        <div class="inr-pill" title="National Indian Rupee Standard Enforced (₹ Lakhs & Crores)">
+          <span class="inr-dot"></span>
+          <span>INR (₹) Base</span>
+        </div>
+
+        <!-- Sync Button -->
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-sync-invoices" title="Sync with Treasury Ledger">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          <span>Sync</span>
+        </button>
+
+        <!-- CSV Export -->
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-export-csv" title="Export Invoices Ledger to CSV">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>Export CSV</span>
+        </button>
+
+        <!-- Batch Dispatch -->
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-batch-dispatch-trigger" title="Batch Dispatch Selected Invoices to Clients">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          <span>Batch Dispatch</span>
+        </button>
+
+        <!-- Primary Action: Generate Invoice -->
+        <button type="button" class="btn btn-primary btn-sm" id="btn-open-new-invoice">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>+ Issue Tax Invoice</span>
+        </button>
       </div>
     </header>
 
-    <div class="invoices-grid">
-      <div class="invoices-stat-card">
-        <div class="invoices-stat-label">Category</div>
-        <div class="invoices-stat-value" style="font-size: 1.125rem;">Financial Engine</div>
+    <!-- 6 Executive KPI Cards Grid -->
+    <section class="kpi-grid-invoices" aria-label="Invoices Key Metrics">
+      <!-- 1. Total Invoiced YTD -->
+      <div class="kpi-card-invoice" id="kpi-total-invoiced" data-filter="ALL" title="Click to view all invoices">
+        <div class="kpi-top">
+          <span class="kpi-label-text">Total Invoiced YTD</span>
+          <div class="kpi-icon-pill blue">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+        </div>
+        <div class="kpi-val" id="kpi-val-total">₹18.42 Cr</div>
+        <div class="kpi-bottom">
+          <span class="kpi-trend-tag positive">↑ +14.8% YoY</span>
+          <span>142 tax invoices FY26</span>
+        </div>
       </div>
-      <div class="invoices-stat-card">
-        <div class="invoices-stat-label">Status</div>
-        <div class="invoices-stat-value" style="font-size: 1.125rem;">Pending</div>
+
+      <!-- 2. Outstanding Invoices -->
+      <div class="kpi-card-invoice" id="kpi-outstanding" data-filter="OUTSTANDING" title="Click to filter outstanding invoices">
+        <div class="kpi-top">
+          <span class="kpi-label-text">Outstanding Invoices</span>
+          <div class="kpi-icon-pill amber">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+        </div>
+        <div class="kpi-val" id="kpi-val-outstanding">₹5.68 Cr</div>
+        <div class="kpi-bottom">
+          <span class="kpi-trend-tag neutral">11 Active Bills</span>
+          <span>Avg term Net 30</span>
+        </div>
       </div>
-      <div class="invoices-stat-card">
-        <div class="invoices-stat-label">Standard</div>
-        <div class="invoices-stat-value" style="font-size: 1.125rem;">INR (₹) Lakhs/Crores</div>
+
+      <!-- 3. Overdue Invoices -->
+      <div class="kpi-card-invoice" id="kpi-overdue" data-filter="Overdue" title="Click to filter overdue invoices">
+        <div class="kpi-top">
+          <span class="kpi-label-text">Overdue Invoices</span>
+          <div class="kpi-icon-pill red">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          </div>
+        </div>
+        <div class="kpi-val" id="kpi-val-overdue" style="color: var(--color-danger);">₹1.18 Cr</div>
+        <div class="kpi-bottom">
+          <span class="kpi-trend-tag negative">4 Critical Accounts</span>
+          <span>Aging &gt; 30d</span>
+        </div>
+      </div>
+
+      <!-- 4. GST Output Liability -->
+      <div class="kpi-card-invoice" id="kpi-gst" data-filter="ALL" title="GST Output Liability Accrued">
+        <div class="kpi-top">
+          <span class="kpi-label-text">GST Output Accrued</span>
+          <div class="kpi-icon-pill teal">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          </div>
+        </div>
+        <div class="kpi-val" id="kpi-val-gst">₹2.81 Cr</div>
+        <div class="kpi-bottom">
+          <span class="kpi-trend-tag positive">GSTR-1 Reconciled</span>
+          <span>18% GST Applicable</span>
+        </div>
+      </div>
+
+      <!-- 5. TDS Withheld by Clients -->
+      <div class="kpi-card-invoice" id="kpi-tds" data-filter="ALL" title="TDS Withheld under Sec 194J/194C">
+        <div class="kpi-top">
+          <span class="kpi-label-text">TDS Withheld (194J)</span>
+          <div class="kpi-icon-pill blue">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+          </div>
+        </div>
+        <div class="kpi-val" id="kpi-val-tds">₹1.42 Cr</div>
+        <div class="kpi-bottom">
+          <span class="kpi-trend-tag neutral">Form 26AS Match</span>
+          <span>10% Professional Tech</span>
+        </div>
+      </div>
+
+      <!-- 6. Realization Velocity -->
+      <div class="kpi-card-invoice" id="kpi-velocity" data-filter="Paid" title="Click to filter paid invoices">
+        <div class="kpi-top">
+          <span class="kpi-label-text">Settlement Velocity</span>
+          <div class="kpi-icon-pill green">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+        </div>
+        <div class="kpi-val" id="kpi-val-velocity">32.4 Days</div>
+        <div class="kpi-bottom">
+          <span class="kpi-trend-tag positive">↓ -4.2 days</span>
+          <span>Benchmark &lt; 40d</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter & Search Toolbar -->
+    <section class="toolbar-card">
+      <div class="toolbar-row">
+        <!-- Search Input -->
+        <div class="toolbar-left">
+          <div class="search-input-box">
+            <svg class="search-icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="invoice-search-input" class="search-input-field" placeholder="Search by Invoice #, Client, Project, Milestone, GSTIN...">
+          </div>
+
+          <!-- Status Tabs -->
+          <div class="status-tabs" role="tablist">
+            <button type="button" class="status-tab-btn active" data-status="ALL">All Invoices (<span id="count-all">0</span>)</button>
+            <button type="button" class="status-tab-btn" data-status="Draft">Drafts (<span id="count-draft">0</span>)</button>
+            <button type="button" class="status-tab-btn" data-status="Issued">Issued (<span id="count-issued">0</span>)</button>
+            <button type="button" class="status-tab-btn" data-status="Dispatched">Dispatched (<span id="count-dispatched">0</span>)</button>
+            <button type="button" class="status-tab-btn" data-status="Partially Paid">Part Paid (<span id="count-partpaid">0</span>)</button>
+            <button type="button" class="status-tab-btn" data-status="Paid">Paid (<span id="count-paid">0</span>)</button>
+            <button type="button" class="status-tab-btn" data-status="Overdue">Overdue (<span id="count-overdue">0</span>)</button>
+            <button type="button" class="status-tab-btn" data-status="Disputed">Disputed (<span id="count-disputed">0</span>)</button>
+          </div>
+        </div>
+
+        <!-- Filter Selects -->
+        <div class="toolbar-right">
+          <!-- GST Type Select -->
+          <select id="filter-gst-type" class="select-filter" aria-label="Filter by GST classification">
+            <option value="ALL">All GST Types</option>
+            <option value="INTRA">Intra-State (CGST + SGST)</option>
+            <option value="INTER">Inter-State (IGST)</option>
+          </select>
+
+          <!-- Sort Select -->
+          <select id="filter-sort" class="select-filter" aria-label="Sort Invoices">
+            <option value="issueDate-desc">Newest First</option>
+            <option value="issueDate-asc">Oldest First</option>
+            <option value="totalAmount-desc">Highest Value</option>
+            <option value="balanceDue-desc">Highest Balance Due</option>
+            <option value="dueDate-asc">Earliest Due Date</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Master Invoices Ledger Table -->
+    <section class="invoices-table-card">
+      <div class="table-header-bar">
+        <div class="batch-actions-strip">
+          <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; margin: 0;">
+            <input type="checkbox" id="select-all-invoices" class="form-check-input" style="margin: 0;">
+            <span style="font-weight: 600; color: var(--text-secondary);">Select All</span>
+          </label>
+          <span id="selected-counter" style="color: var(--text-muted); display: none;">• <strong id="selected-count-number">0</strong> selected</span>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-batch-dispatch-selected" style="display: none; padding: 2px 10px; height: 28px;">
+            Dispatch Selected (<span id="btn-dispatch-count">0</span>)
+          </button>
+        </div>
+
+        <div style="font-size: var(--font-size-xs); color: var(--text-muted);">
+          Showing <span id="showing-count" style="font-weight: 600; color: var(--text-primary);">0</span> records
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table" id="invoices-table">
+          <thead>
+            <tr>
+              <th style="width: 40px; text-align: center;"></th>
+              <th>Invoice # & IRN</th>
+              <th>Client & GSTIN</th>
+              <th>Milestone Deliverable</th>
+              <th>Issue Date</th>
+              <th>Due Date</th>
+              <th class="table-col-numeric">Base Amount (₹)</th>
+              <th class="table-col-numeric">GST (18%)</th>
+              <th class="table-col-numeric">Total Value (₹)</th>
+              <th class="table-col-numeric">Balance Due (₹)</th>
+              <th>Status</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="invoices-tbody">
+            <!-- Dynamically populated via invoices.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-footer-bar">
+        <div>
+          <span>Standard: <strong>Indian GST Tax Invoice (E-Invoice Portal v1.03 Compliant)</strong></span>
+        </div>
+        <div style="display: flex; gap: 1.5rem; font-variant-numeric: tabular-nums;">
+          <span>Total Taxable Value: <strong id="footer-taxable-sum">₹0</strong></span>
+          <span>Total GST Accrued: <strong id="footer-gst-sum">₹0</strong></span>
+          <span>Total Balance Due: <strong id="footer-balance-sum" style="color: var(--color-danger);">₹0</strong></span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ========================================================================
+       MODAL 1: NEW TAX INVOICE ISSUANCE
+       ======================================================================== -->
+  <div id="modal-new-invoice" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-new-inv-title">
+    <div class="modal-dialog" style="max-width: 680px !important;">
+      <div class="modal-header">
+        <h3 id="modal-new-inv-title" class="modal-title">Issue New Tax Invoice</h3>
+        <button type="button" class="modal-close" onclick="window.InvoicesApp.closeModal('modal-new-invoice')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-new-invoice">
+          <!-- Milestone Preset Picker -->
+          <div style="margin-bottom: 1rem;">
+            <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">
+              Select Billable Milestone (Ready to Bill)
+            </label>
+            <select id="new-inv-milestone-select" class="form-control" style="font-size: 0.8125rem;">
+              <option value="">-- Choose from ready milestones or enter manually --</option>
+            </select>
+          </div>
+
+          <div class="form-grid-2col">
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Client Legal Name *</label>
+              <input type="text" id="new-inv-client" class="form-control" placeholder="e.g. Tata Digital Enterprises" required>
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Client GSTIN *</label>
+              <input type="text" id="new-inv-gstin" class="form-control" placeholder="e.g. 27AABCT2418Q1ZV" maxlength="15" required style="font-family: var(--font-family-mono); text-transform: uppercase;">
+            </div>
+          </div>
+
+          <div class="form-grid-2col">
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Project Name *</label>
+              <input type="text" id="new-inv-project" class="form-control" placeholder="e.g. Tata Omnichannel Cloud Migration" required>
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Milestone Deliverable *</label>
+              <input type="text" id="new-inv-deliverable" class="form-control" placeholder="e.g. Core Database Cutover & GST Audit" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2col">
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Base Taxable Value (INR ₹) *</label>
+              <input type="number" id="new-inv-base-amount" class="form-control" placeholder="e.g. 8500000" min="1000" step="1000" required style="font-variant-numeric: tabular-nums;">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Place of Supply (State) *</label>
+              <select id="new-inv-place-of-supply" class="form-control">
+                <option value="27-Maharashtra">27-Maharashtra (Intra-State: 9% CGST + 9% SGST)</option>
+                <option value="29-Karnataka">29-Karnataka (Inter-State: 18% IGST)</option>
+                <option value="06-Haryana">06-Haryana (Inter-State: 18% IGST)</option>
+                <option value="07-Delhi">07-Delhi (Inter-State: 18% IGST)</option>
+                <option value="33-Tamil Nadu">33-Tamil Nadu (Inter-State: 18% IGST)</option>
+                <option value="36-Telangana">36-Telangana (Inter-State: 18% IGST)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-2col">
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">HSN / SAC Code</label>
+              <select id="new-inv-sac" class="form-control">
+                <option value="998313">998313 - IT Consulting & Infrastructure Deployment</option>
+                <option value="998314">998314 - IT Software Design, Development & Integration</option>
+                <option value="998311">998311 - Management Consulting & Security Compliance</option>
+                <option value="998319">998319 - Other Information Technology Services</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Payment Terms</label>
+              <select id="new-inv-terms" class="form-control">
+                <option value="Net 30">Net 30 Days</option>
+                <option value="Net 15">Net 15 Days</option>
+                <option value="Net 45">Net 45 Days</option>
+                <option value="Net 60">Net 60 Days</option>
+                <option value="Due on Receipt">Due on Receipt</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-2col">
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Invoice Date</label>
+              <input type="date" id="new-inv-date" class="form-control" required>
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Client Recipient Email</label>
+              <input type="email" id="new-inv-email" class="form-control" placeholder="finance.ap@clientcorp.com">
+            </div>
+          </div>
+
+          <!-- Dynamic Tax Calculation Summary Box -->
+          <div class="tax-calc-box">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">
+              Live Tax Liability & Settlement Projection (INR)
+            </div>
+            <div class="tax-calc-row">
+              <span>Taxable Value:</span>
+              <span id="calc-base">₹0</span>
+            </div>
+            <div class="tax-calc-row">
+              <span id="calc-gst-label">CGST (9%) + SGST (9%):</span>
+              <span id="calc-gst">₹0</span>
+            </div>
+            <div class="tax-calc-row total">
+              <span>Total Invoice Amount (Gross):</span>
+              <span id="calc-total" style="color: var(--color-primary-600);">₹0</span>
+            </div>
+            <div class="tax-calc-row" style="color: var(--text-muted); font-size: 0.75rem; margin-top: 4px;">
+              <span>Estimated TDS Withholding by Client (Sec 194J - 10%):</span>
+              <span id="calc-tds">- ₹0</span>
+            </div>
+            <div class="tax-calc-row" style="font-weight: 600; color: var(--color-success);">
+              <span>Net Bank Remittance Expected:</span>
+              <span id="calc-net">₹0</span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.InvoicesApp.closeModal('modal-new-invoice')">Cancel</button>
+        <button type="button" class="btn btn-outline" id="btn-save-draft">Save as Draft</button>
+        <button type="button" class="btn btn-primary" id="btn-submit-invoice">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Issue & Generate IRN</span>
+        </button>
       </div>
     </div>
+  </div>
 
-    <div style="background: var(--bg-surface-secondary, var(--color-slate-50)); border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 1.25rem; font-size: 0.8125rem; line-height: 1.5; color: var(--text-secondary); margin-bottom: 1.5rem;">
-      <strong>Developer Workspace:</strong>
-      <p style="margin: 0.25rem 0 0 0;">
-        This module is ready for parallel development. Work strictly inside <code>modules/invoices/</code>.
-        To preview your module in the master dashboard, update <code>path</code> in <code>modules/invoices/module.config.js</code> to <code>modules/invoices/index.html</code> and set <code>status: "ready"</code>.
-      </p>
+  <!-- ========================================================================
+       MODAL 2: PRINTABLE GST TAX INVOICE PREVIEW (PDF VIEW)
+       ======================================================================== -->
+  <div id="modal-invoice-preview" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="preview-modal-title">
+    <div class="modal-dialog modal-tax-invoice-dialog">
+      <div class="modal-header">
+        <h3 id="preview-modal-title" class="modal-title">Tax Invoice Document</h3>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-print-invoice" title="Print or Save as PDF">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            <span>Print / PDF</span>
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-dispatch-single" title="Send Invoice PDF directly to Client AP email">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <span>Dispatch to Client</span>
+          </button>
+          <button type="button" class="modal-close" onclick="window.InvoicesApp.closeModal('modal-invoice-preview')">&times;</button>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 1.25rem !important; max-height: calc(88vh - 120px); overflow-y: auto;">
+        
+        <!-- Printable Tax Invoice Paper Layout -->
+        <div class="tax-invoice-paper" id="printable-tax-invoice">
+          
+          <!-- Top Corporate Header -->
+          <div class="tax-invoice-header">
+            <div class="company-tax-brand">
+              <h3 id="pdf-comp-name">Finnova Technologies India Private Limited</h3>
+              <div class="company-meta-line" id="pdf-comp-addr">Peninsula Business Park, Lower Parel, Mumbai, Maharashtra 400013</div>
+              <div class="company-meta-line">
+                <strong>GSTIN:</strong> <span id="pdf-comp-gstin">27AAGCF9920K1ZX</span> | 
+                <strong>PAN:</strong> <span id="pdf-comp-pan">AAGCF9920K</span> | 
+                <strong>CIN:</strong> <span id="pdf-comp-cin">U72900MH2021PTC368921</span>
+              </div>
+              <div class="company-meta-line">State: Maharashtra (Code: 27) | Email: finance.billing@finnova.io</div>
+            </div>
+
+            <div class="tax-title-block">
+              <div class="tax-title-text">TAX INVOICE</div>
+              <div style="font-size: 0.75rem; color: #64748B; margin-bottom: 4px;">Original for Recipient</div>
+              <div class="irn-box" title="Government E-Invoice Portal IRN">
+                <strong>IRN:</strong> <span id="pdf-inv-irn">Generating...</span>
+              </div>
+              <div style="font-size: 0.6875rem; color: #64748B; font-family: var(--font-family-mono);">
+                Ack No: <span id="pdf-inv-ack">112610948291</span> | Ack Date: <span id="pdf-inv-ackdate">2026-03-01</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata 2-Column Grid -->
+          <div class="invoice-meta-grid">
+            <!-- Left: Invoice Details -->
+            <div>
+              <div class="meta-box-heading">Invoice Details</div>
+              <div style="display: grid; grid-template-columns: 110px 1fr; gap: 4px; font-size: 0.75rem;">
+                <span style="color: #64748B;">Invoice No:</span>
+                <strong id="pdf-inv-number" style="font-family: var(--font-family-mono); color: #1E3A8A;">INV-2026-089</strong>
+
+                <span style="color: #64748B;">Invoice Date:</span>
+                <span id="pdf-inv-date">01-Mar-2026</span>
+
+                <span style="color: #64748B;">Payment Terms:</span>
+                <span id="pdf-inv-terms">Net 30 Days</span>
+
+                <span style="color: #64748B;">Due Date:</span>
+                <strong id="pdf-inv-due">31-Mar-2026</strong>
+
+                <span style="color: #64748B;">Milestone Code:</span>
+                <span id="pdf-inv-milestone" style="font-family: var(--font-family-mono);">MS-301-CLEARING</span>
+
+                <span style="color: #64748B;">Project Ref:</span>
+                <span id="pdf-inv-project">HDFC Core Banking API Upgrade</span>
+              </div>
+            </div>
+
+            <!-- Right: Bill-To & Ship-To Details -->
+            <div>
+              <div class="meta-box-heading">Billed To (Client)</div>
+              <div style="display: grid; grid-template-columns: 110px 1fr; gap: 4px; font-size: 0.75rem;">
+                <span style="color: #64748B;">Legal Name:</span>
+                <strong id="pdf-client-name">HDFC Banking Solutions</strong>
+
+                <span style="color: #64748B;">Client GSTIN:</span>
+                <strong id="pdf-client-gstin" style="font-family: var(--font-family-mono); color: #0F172A;">27AAACH2702H1ZQ</strong>
+
+                <span style="color: #64748B;">Billing Address:</span>
+                <span id="pdf-client-addr">HDFC House, HT Parekh Marg, Churchgate, Mumbai 400020</span>
+
+                <span style="color: #64748B;">Place of Supply:</span>
+                <span id="pdf-client-pos">27-Maharashtra</span>
+
+                <span style="color: #64748B;">Reverse Charge:</span>
+                <span>No (Standard Charge Forward)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Itemized Items Table -->
+          <table class="invoice-items-table">
+            <thead>
+              <tr>
+                <th style="width: 35px; text-align: center;">#</th>
+                <th>Description of Service / Deliverable</th>
+                <th style="width: 80px;">HSN/SAC</th>
+                <th style="width: 50px; text-align: center;">Qty</th>
+                <th style="width: 110px; text-align: right;">Rate (₹)</th>
+                <th style="width: 120px; text-align: right;">Taxable Amount (₹)</th>
+              </tr>
+            </thead>
+            <tbody id="pdf-items-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+
+          <!-- Financial Calculation Breakdown & Words -->
+          <div class="invoice-summary-section">
+            <div class="amount-words-box">
+              <div style="font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; color: #64748B; margin-bottom: 4px;">
+                Total Amount in Words (INR)
+              </div>
+              <div id="pdf-amount-words" style="font-weight: 700; color: #0F172A; font-size: 0.8125rem; font-style: italic;">
+                Rupees One Crore Forty-Seven Lakhs Fifty Thousand Only
+              </div>
+              <div style="margin-top: 10px; font-size: 0.6875rem; color: #64748B;">
+                <strong>Tax Classification Note:</strong>
+                <span id="pdf-tax-note">Supply is Intra-state. Central GST @ 9% and State GST @ 9% applied as per CGST/SGST Act 2017.</span>
+              </div>
+            </div>
+
+            <table class="amount-totals-table">
+              <tr>
+                <td style="color: #64748B;">Total Taxable Value:</td>
+                <td style="text-align: right; font-weight: 600;" id="pdf-subtotal">₹1,25,00,000</td>
+              </tr>
+              <tr id="pdf-cgst-row">
+                <td style="color: #64748B;">CGST (9.0%):</td>
+                <td style="text-align: right;" id="pdf-cgst">₹11,25,000</td>
+              </tr>
+              <tr id="pdf-sgst-row">
+                <td style="color: #64748B;">SGST (9.0%):</td>
+                <td style="text-align: right;" id="pdf-sgst">₹11,25,000</td>
+              </tr>
+              <tr id="pdf-igst-row" style="display: none;">
+                <td style="color: #64748B;">IGST (18.0%):</td>
+                <td style="text-align: right;" id="pdf-igst">₹0</td>
+              </tr>
+              <tr class="grand-total">
+                <td>Invoice Total (INR):</td>
+                <td style="text-align: right;" id="pdf-grand-total">₹1,47,50,000</td>
+              </tr>
+              <tr style="font-size: 0.75rem; color: #64748B;">
+                <td>Less TDS (Sec 194J - 10%):</td>
+                <td style="text-align: right;" id="pdf-tds-deduction">- ₹12,50,000</td>
+              </tr>
+              <tr style="font-size: 0.8125rem; font-weight: 700; color: #15803D;">
+                <td>Net Payable Amount:</td>
+                <td style="text-align: right;" id="pdf-net-receivable">₹1,35,00,000</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- Bank Details & Digital Signatory -->
+          <div class="bank-signatory-grid">
+            <div style="font-size: 0.75rem; color: #334155;">
+              <div style="font-weight: 700; color: #0F172A; text-transform: uppercase; margin-bottom: 4px;">Remittance Bank Account (NEFT / RTGS)</div>
+              <div><strong>Bank Name:</strong> <span id="pdf-bank-name">HDFC Bank Limited</span></div>
+              <div><strong>Account Name:</strong> <span id="pdf-bank-accname">Finnova Technologies India Pvt Ltd</span></div>
+              <div><strong>A/C No:</strong> <span id="pdf-bank-accno" style="font-family: var(--font-family-mono); font-weight: 600;">50200084920192</span></div>
+              <div><strong>IFSC Code:</strong> <span id="pdf-bank-ifsc" style="font-family: var(--font-family-mono); font-weight: 600;">HDFC0000060</span> (Peninsula Park Branch)</div>
+            </div>
+
+            <div class="signatory-box">
+              <div class="signature-stamp">✓ Digitally Signed & IRN Verified</div>
+              <div style="font-size: 0.6875rem; color: #64748B;">For Finnova Technologies India Pvt Ltd</div>
+              <div style="font-weight: 700; font-size: 0.8125rem; margin-top: 2px;">Authorized Signatory</div>
+              <div style="font-size: 0.6875rem; color: #64748B;">Corporate Treasury & Finance</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.InvoicesApp.closeModal('modal-invoice-preview')">Close</button>
+      </div>
     </div>
+  </div>
 
-    <div style="display: flex; gap: 0.75rem;">
-      <button type="button" class="btn btn-primary" id="btn-action-invoices">
-        Test Notification Toast
-      </button>
+  <!-- ========================================================================
+       MODAL 3: CREDIT NOTE ISSUANCE
+       ======================================================================== -->
+  <div id="modal-credit-note" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="cn-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="cn-modal-title" class="modal-title">Issue Credit Note</h3>
+        <button type="button" class="modal-close" onclick="window.InvoicesApp.closeModal('modal-credit-note')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-credit-note">
+          <input type="hidden" id="cn-invoice-id">
+          <div style="margin-bottom: 0.875rem;">
+            <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Against Tax Invoice</label>
+            <input type="text" id="cn-display-invoice" class="form-control" readonly style="font-weight: 600;">
+          </div>
+          <div style="margin-bottom: 0.875rem;">
+            <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Credit Note Reason *</label>
+            <select id="cn-reason" class="form-control" required>
+              <option value="Commercial SLA Adjustment">Commercial SLA / Milestone Adjustment</option>
+              <option value="Billing Rate Correction">Billing Rate / Taxable Value Correction</option>
+              <option value="Scope Concession">Scope Concession / Milestone Waiver</option>
+              <option value="Tax Reversal">GST / TDS Reconciliation Reversal</option>
+            </select>
+          </div>
+          <div style="margin-bottom: 0.875rem;">
+            <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Credit Amount Base INR *</label>
+            <input type="number" id="cn-amount" class="form-control" placeholder="e.g. 500000" min="1000" step="1000" required>
+          </div>
+          <div style="margin-bottom: 0.875rem;">
+            <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Remarks / Auditor Notes</label>
+            <textarea id="cn-notes" class="form-control" rows="2" placeholder="Provide justification for credit note issuance..."></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.InvoicesApp.closeModal('modal-credit-note')">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btn-submit-cn">Issue Credit Note</button>
+      </div>
     </div>
-  </main>
+  </div>
 
-  <!-- Module Scripts -->
+  <!-- ========================================================================
+       MODAL 4: RECORD INCOMING REMITTANCE / PAYMENT
+       ======================================================================== -->
+  <div id="modal-record-payment" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="pay-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="pay-modal-title" class="modal-title">Record Payment Remittance</h3>
+        <button type="button" class="modal-close" onclick="window.InvoicesApp.closeModal('modal-record-payment')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-record-payment">
+          <input type="hidden" id="pay-invoice-id">
+          <div style="margin-bottom: 0.875rem;">
+            <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Tax Invoice Ref</label>
+            <input type="text" id="pay-display-invoice" class="form-control" readonly style="font-weight: 600;">
+          </div>
+          <div class="form-grid-2col">
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Payment Mode</label>
+              <select id="pay-mode" class="form-control">
+                <option value="RTGS">RTGS (High-Value)</option>
+                <option value="NEFT">NEFT Settlement</option>
+                <option value="IMPS">IMPS Immediate</option>
+                <option value="Cheque">Corporate Cheque</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Bank Reference / UTR *</label>
+              <input type="text" id="pay-utr" class="form-control" placeholder="e.g. HDFCR52026030501" required style="font-family: var(--font-family-mono);">
+            </div>
+          </div>
+          <div class="form-grid-2col">
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Amount Received (INR ₹) *</label>
+              <input type="number" id="pay-amount" class="form-control" required style="font-variant-numeric: tabular-nums;">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">TDS Deducted (INR ₹)</label>
+              <input type="number" id="pay-tds" class="form-control" placeholder="0" style="font-variant-numeric: tabular-nums;">
+            </div>
+          </div>
+          <div style="margin-bottom: 0.875rem;">
+            <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Settlement Date</label>
+            <input type="date" id="pay-date" class="form-control" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.InvoicesApp.closeModal('modal-record-payment')">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btn-submit-payment">Post to Ledger</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script src="data.js"></script>
   <script src="invoices.js"></script>
 </body>

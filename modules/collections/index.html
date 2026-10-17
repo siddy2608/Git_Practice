@@ -24,48 +24,512 @@
 </head>
 <body>
 
-  <main class="collections-card">
+  <div class="collections-container">
+
+    <!-- Top Command Header -->
     <header class="collections-header">
       <div class="collections-title-box">
-        <h2>Collections Management</h2>
+        <h2>
+          <span>Collections Management</span>
+          <span class="badge badge-sprint" style="font-size: 0.75rem; vertical-align: middle;">Treasury &amp; Capital</span>
+        </h2>
         <p class="collections-subtitle">Accounts receivable aging, dunning notices, client payment tracking, and disputes resolution.</p>
       </div>
-      <div>
-        <span class="badge badge-sprint">Sprint 2</span>
+
+      <div class="header-actions">
+        <!-- Collection Efficiency Pill -->
+        <div class="efficiency-pill" title="Current Collection Efficiency Rate">
+          <span class="badge-dot" style="width:7px; height:7px; border-radius:50%; background:var(--color-accent-600); display:inline-block;"></span>
+          <span>91.4% Efficiency</span>
+        </div>
+
+        <!-- Sync Button -->
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-sync-collections" title="Sync Collections with Treasury Bank Feed">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          <span>Sync</span>
+        </button>
+
+        <!-- CSV Export -->
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-export-ar-csv" title="Export AR Aging Portfolio to CSV">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>Export AR (CSV)</span>
+        </button>
+
+        <!-- Batch Dunning Trigger -->
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-dunning-batch-trigger" title="Send Dunning Reminders to Overdue Accounts">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          <span>Send Reminders</span>
+        </button>
+
+        <!-- Primary Action: Record Payment -->
+        <button type="button" class="btn btn-primary btn-sm" id="btn-open-payment-modal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>+ Record Remittance</span>
+        </button>
       </div>
     </header>
 
-    <div class="collections-grid">
-      <div class="collections-stat-card">
-        <div class="collections-stat-label">Category</div>
-        <div class="collections-stat-value" style="font-size: 1.125rem;">Treasury & Capital</div>
+    <!-- 6 Executive KPI Metric Cards -->
+    <section class="kpi-grid-collections" aria-label="Collections KPI Telemetry">
+      <!-- 1. Total Receivables -->
+      <div class="kpi-card-coll" id="kpi-total-ar" data-filter="ALL" title="Click to view all accounts">
+        <div class="kpi-top">
+          <span class="kpi-label-text">Total Receivables</span>
+          <div class="kpi-icon-pill blue">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+        </div>
+        <div class="kpi-val" id="kpi-coll-total">₹6.82 Cr</div>
+        <div class="kpi-bottom">
+          <span class="kpi-trend-tag positive">DSO: 38.5 Days</span>
+          <span>18 corporate accounts</span>
+        </div>
       </div>
-      <div class="collections-stat-card">
-        <div class="collections-stat-label">Status</div>
-        <div class="collections-stat-value" style="font-size: 1.125rem;">Pending</div>
+
+      <!-- 2. Current Not Due (0-30d) -->
+      <div class="kpi-card-coll" id="kpi-current-ar" data-filter="CURRENT" title="Click to filter Current 0-30d accounts">
+        <div class="kpi-top">
+          <span class="kpi-label-text">Current (0-30d)</span>
+          <div class="kpi-icon-pill green">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+        </div>
+        <div class="kpi-val" id="kpi-coll-current">₹3.95 Cr</div>
+        <div class="kpi-bottom">
+          <span class="kpi-trend-tag positive">57.9% of Total</span>
+          <span>Not due yet</span>
+        </div>
       </div>
-      <div class="collections-stat-card">
-        <div class="collections-stat-label">Standard</div>
-        <div class="collections-stat-value" style="font-size: 1.125rem;">INR (₹) Lakhs/Crores</div>
+
+      <!-- 3. Overdue 31-60 Days -->
+      <div class="kpi-card-coll" id="kpi-overdue-31-60" data-filter="31-60" title="Click to filter 31-60 days accounts">
+        <div class="kpi-top">
+          <span class="kpi-label-text">Overdue (31-60d)</span>
+          <div class="kpi-icon-pill amber">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+        </div>
+        <div class="kpi-val" id="kpi-coll-31-60">₹1.68 Cr</div>
+        <div class="kpi-bottom">
+          <span class="kpi-trend-tag neutral">24.6% of Total</span>
+          <span>Dunning Level 1/2</span>
+        </div>
+      </div>
+
+      <!-- 4. Critical Overdue 61+ Days -->
+      <div class="kpi-card-coll" id="kpi-overdue-61plus" data-filter="61+" title="Click to filter Critical 61+ days accounts">
+        <div class="kpi-top">
+          <span class="kpi-label-text">Critical (61+ Days)</span>
+          <div class="kpi-icon-pill red">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          </div>
+        </div>
+        <div class="kpi-val" id="kpi-coll-critical" style="color: var(--color-danger);">₹1.19 Cr</div>
+        <div class="kpi-bottom">
+          <span class="kpi-trend-tag negative">17.5% at Risk</span>
+          <span>CFO / Legal Notice</span>
+        </div>
+      </div>
+
+      <!-- 5. Portfolio DSO -->
+      <div class="kpi-card-coll" id="kpi-dso-card" data-filter="ALL" title="Days Sales Outstanding">
+        <div class="kpi-top">
+          <span class="kpi-label-text">Portfolio DSO</span>
+          <div class="kpi-icon-pill teal">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+          </div>
+        </div>
+        <div class="kpi-val" id="kpi-coll-dso">38.5 Days</div>
+        <div class="kpi-bottom">
+          <span class="kpi-trend-tag positive">↓ -3.2 days</span>
+          <span>Weighted average</span>
+        </div>
+      </div>
+
+      <!-- 6. PTP Pipeline -->
+      <div class="kpi-card-coll" id="kpi-ptp-card" data-filter="ALL" title="Promised-to-Pay Commitments">
+        <div class="kpi-top">
+          <span class="kpi-label-text">PTP Commitments</span>
+          <div class="kpi-icon-pill green">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          </div>
+        </div>
+        <div class="kpi-val" id="kpi-coll-ptp">₹85.00 L</div>
+        <div class="kpi-bottom">
+          <span class="kpi-trend-tag positive">Expected this week</span>
+          <span>4 Client Commitments</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive AR Aging Spectrum Visualizer Bar -->
+    <section class="aging-spectrum-card" aria-label="Aging Distribution Visualizer">
+      <div class="spectrum-header">
+        <span class="spectrum-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+          <span>Accounts Receivable Aging Spectrum (₹6.82 Cr Portfolio)</span>
+        </span>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">Click any aging tier to filter the ledger table</span>
+      </div>
+
+      <!-- Segmented Bar -->
+      <div class="spectrum-progress-bar">
+        <div class="spectrum-segment seg-current" id="spec-bar-current" style="width: 57.9%;" title="Current (0-30d): ₹3.95 Cr (57.9%)"></div>
+        <div class="spectrum-segment seg-31-60" id="spec-bar-31-60" style="width: 24.6%;" title="31-60 Days: ₹1.68 Cr (24.6%)"></div>
+        <div class="spectrum-segment seg-61-90" id="spec-bar-61-90" style="width: 11.0%;" title="61-90 Days: ₹75.00 L (11.0%)"></div>
+        <div class="spectrum-segment seg-90plus" id="spec-bar-90plus" style="width: 6.5%;" title="90+ Days Critical: ₹44.00 L (6.5%)"></div>
+      </div>
+
+      <!-- Legend & Values -->
+      <div class="spectrum-legend">
+        <div class="legend-item" data-filter="CURRENT">
+          <span class="legend-dot green"></span>
+          <span>Current (0-30d):</span>
+          <span class="legend-val" id="leg-val-current">₹3.95 Cr</span>
+          <span class="text-muted">(57.9%)</span>
+        </div>
+        <div class="legend-item" data-filter="31-60">
+          <span class="legend-dot blue"></span>
+          <span>31-60 Days:</span>
+          <span class="legend-val" id="leg-val-31-60">₹1.68 Cr</span>
+          <span class="text-muted">(24.6%)</span>
+        </div>
+        <div class="legend-item" data-filter="61-90">
+          <span class="legend-dot amber"></span>
+          <span>61-90 Days:</span>
+          <span class="legend-val" id="leg-val-61-90">₹75.00 L</span>
+          <span class="text-muted">(11.0%)</span>
+        </div>
+        <div class="legend-item" data-filter="90+">
+          <span class="legend-dot red"></span>
+          <span>90+ Days (Critical):</span>
+          <span class="legend-val" id="leg-val-90plus" style="color: var(--color-danger);">₹44.00 L</span>
+          <span class="text-muted">(6.5%)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter & Search Toolbar -->
+    <section class="toolbar-card">
+      <div class="toolbar-row">
+        <!-- Search Input -->
+        <div class="toolbar-left">
+          <div class="search-input-box">
+            <svg class="search-icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="coll-search-input" class="search-input-field" placeholder="Search by Client, Contact, Collector, Invoice #...">
+          </div>
+
+          <!-- Aging Filter Pills -->
+          <div class="aging-filter-pills" role="tablist">
+            <button type="button" class="aging-pill-btn active" data-bucket="ALL">All Accounts (<span id="coll-count-all">0</span>)</button>
+            <button type="button" class="aging-pill-btn" data-bucket="CURRENT">Current 0-30d (<span id="coll-count-current">0</span>)</button>
+            <button type="button" class="aging-pill-btn" data-bucket="31-60">31-60 Days (<span id="coll-count-31-60">0</span>)</button>
+            <button type="button" class="aging-pill-btn" data-bucket="61-90">61-90 Days (<span id="coll-count-61-90">0</span>)</button>
+            <button type="button" class="aging-pill-btn" data-bucket="90+">90+ Critical (<span id="coll-count-90plus">0</span>)</button>
+          </div>
+        </div>
+
+        <!-- Filter Selects -->
+        <div class="toolbar-right">
+          <!-- Dunning Level Select -->
+          <select id="filter-dunning" class="select-filter" aria-label="Filter by Dunning Level">
+            <option value="ALL">All Dunning Levels</option>
+            <option value="None">None (Current)</option>
+            <option value="Level 1">Level 1 (Courtesy)</option>
+            <option value="Level 2">Level 2 (Demand)</option>
+            <option value="Level 3">Level 3 (CFO Notice)</option>
+          </select>
+
+          <!-- Dispute Filter -->
+          <select id="filter-disputes" class="select-filter" aria-label="Filter by Dispute Status">
+            <option value="ALL">All Accounts</option>
+            <option value="HAS_DISPUTE">Has Active Dispute</option>
+            <option value="NO_DISPUTE">No Active Dispute</option>
+          </select>
+
+          <!-- Sort Select -->
+          <select id="filter-sort-coll" class="select-filter" aria-label="Sort Collections Ledger">
+            <option value="totalAR-desc">Highest Outstanding</option>
+            <option value="overdueDays-desc">Most Overdue (DSO)</option>
+            <option value="riskScore-desc">Highest Risk Score</option>
+            <option value="ptpDate-asc">Nearest PTP Date</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Master Collections Ledger Table -->
+    <section class="collections-table-card">
+      <div class="table-header-bar">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; margin: 0;">
+            <input type="checkbox" id="select-all-accounts" class="form-check-input" style="margin: 0;">
+            <span style="font-weight: 600; color: var(--text-secondary);">Select All</span>
+          </label>
+          <span id="coll-selected-counter" style="color: var(--text-muted); display: none;">• <strong id="coll-selected-count-number">0</strong> selected</span>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-batch-dunning-selected" style="display: none; padding: 2px 10px; height: 28px;">
+            Send Dunning to Selected (<span id="btn-dunning-count">0</span>)
+          </button>
+        </div>
+
+        <div style="font-size: var(--font-size-xs); color: var(--text-muted);">
+          Showing <span id="showing-coll-count" style="font-weight: 600; color: var(--text-primary);">0</span> accounts
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table" id="collections-table">
+          <thead>
+            <tr>
+              <th style="width: 40px; text-align: center;"></th>
+              <th>Client Portfolio</th>
+              <th class="table-col-numeric">Total AR (₹)</th>
+              <th style="width: 110px;">Aging Profile</th>
+              <th>Oldest Due Date</th>
+              <th class="table-col-numeric">Overdue (DSO)</th>
+              <th>Dunning Status</th>
+              <th>Dispute Tag</th>
+              <th>PTP Commitment</th>
+              <th>Risk</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="collections-tbody">
+            <!-- Dynamically populated via collections.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-footer-bar">
+        <div>
+          <span>Treasury Policy: <strong>MSMED Act 2006 Compliant / Net 30/45 Working Capital</strong></span>
+        </div>
+        <div style="display: flex; gap: 1.5rem; font-variant-numeric: tabular-nums;">
+          <span>Total Outstanding AR: <strong id="coll-footer-total">₹0</strong></span>
+          <span>Overdue (31+ Days): <strong id="coll-footer-overdue" style="color: var(--color-warning);">₹0</strong></span>
+          <span>Critical Risk (61+ Days): <strong id="coll-footer-critical" style="color: var(--color-danger);">₹0</strong></span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ========================================================================
+       MODAL 1: RECORD REMITTANCE / SETTLEMENT
+       ======================================================================== -->
+  <div id="modal-record-receipt" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="receipt-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="receipt-modal-title" class="modal-title">Record Client Remittance</h3>
+        <button type="button" class="modal-close" onclick="window.CollectionsApp.closeModal('modal-record-receipt')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-record-receipt">
+          <input type="hidden" id="receipt-account-id">
+          
+          <div style="margin-bottom: 0.875rem;">
+            <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Client Account</label>
+            <input type="text" id="receipt-client-name" class="form-control" readonly style="font-weight: 600;">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.875rem;">
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Payment Mode *</label>
+              <select id="receipt-mode" class="form-control">
+                <option value="RTGS">RTGS (High-Value Real-Time)</option>
+                <option value="NEFT">NEFT National Clearing</option>
+                <option value="IMPS">IMPS Immediate Transfer</option>
+                <option value="Cheque">Corporate Account Payee Cheque</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Bank Reference / UTR *</label>
+              <input type="text" id="receipt-utr" class="form-control" placeholder="e.g. HDFCR52026031201" required style="font-family: var(--font-family-mono);">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.875rem;">
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Amount Received (INR ₹) *</label>
+              <input type="number" id="receipt-amount" class="form-control" min="1000" step="1000" required style="font-variant-numeric: tabular-nums;">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">TDS Deducted by Client (₹)</label>
+              <input type="number" id="receipt-tds" class="form-control" placeholder="0" style="font-variant-numeric: tabular-nums;">
+            </div>
+          </div>
+
+          <div style="margin-bottom: 0.875rem;">
+            <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Credited Finnova Bank Account</label>
+            <select id="receipt-bank-acc" class="form-control">
+              <option value="HDFC-50200084920192">HDFC Bank Limited - Peninsula Park Branch (A/C: ...0192)</option>
+              <option value="ICICI-000405018290">ICICI Bank Limited - Nariman Point Branch (A/C: ...8290)</option>
+              <option value="SBI-39018492019">State Bank of India - Corporate Banking Branch (A/C: ...2019)</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom: 0.875rem;">
+            <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Remittance Value Date</label>
+            <input type="date" id="receipt-date" class="form-control" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.CollectionsApp.closeModal('modal-record-receipt')">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btn-submit-receipt">Post Remittance to AR</button>
       </div>
     </div>
+  </div>
 
-    <div style="background: var(--bg-surface-secondary, var(--color-slate-50)); border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 1.25rem; font-size: 0.8125rem; line-height: 1.5; color: var(--text-secondary); margin-bottom: 1.5rem;">
-      <strong>Developer Workspace:</strong>
-      <p style="margin: 0.25rem 0 0 0;">
-        This module is ready for parallel development. Work strictly inside <code>modules/collections/</code>.
-        To preview your module in the master dashboard, update <code>path</code> in <code>modules/collections/module.config.js</code> to <code>modules/collections/index.html</code> and set <code>status: "ready"</code>.
-      </p>
+  <!-- ========================================================================
+       MODAL 2: DUNNING NOTICE GENERATOR & DISPATCH
+       ======================================================================== -->
+  <div id="modal-dunning-notice" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="dunning-modal-title">
+    <div class="modal-dialog" style="max-width: 680px !important;">
+      <div class="modal-header">
+        <h3 id="dunning-modal-title" class="modal-title">Dunning Notice &amp; Legal Demand</h3>
+        <button type="button" class="modal-close" onclick="window.CollectionsApp.closeModal('modal-dunning-notice')">&times;</button>
+      </div>
+      <div class="modal-body" style="max-height: calc(85vh - 120px); overflow-y: auto;">
+        
+        <input type="hidden" id="dunning-account-id">
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;">
+          <div>
+            <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Select Dunning Escalation Level</label>
+            <select id="dunning-level-select" class="form-control">
+              <option value="LEVEL_1">Level 1 - Courtesy Reminder (0-30 Days Overdue)</option>
+              <option value="LEVEL_2">Level 2 - Formal Demand Notice (31-60 Days Overdue)</option>
+              <option value="LEVEL_3">Level 3 - Executive CFO Escalation (61-90 Days Overdue)</option>
+              <option value="LEVEL_4">Level 4 - Legal Demand under MSMED Act 2006 (90+ Days)</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Recipient Client AP Contact</label>
+            <input type="text" id="dunning-recipient-email" class="form-control" readonly style="font-size: 0.8125rem;">
+          </div>
+        </div>
+
+        <!-- Dunning Notice Letterhead Preview -->
+        <div class="dunning-paper">
+          <div class="dunning-letterhead">
+            <div>
+              <strong style="font-size: 1.125rem; color: #0F172A;">Finnova Technologies India Private Limited</strong>
+              <div style="font-size: 0.6875rem; color: #64748B;">Corporate Treasury &amp; Credit Control Division</div>
+              <div style="font-size: 0.6875rem; color: #64748B;">Peninsula Business Park, Lower Parel, Mumbai 400013</div>
+            </div>
+            <div style="text-align: right; font-size: 0.75rem; color: #475569;">
+              <div>Date: <strong id="dunning-date-text">17-Mar-2026</strong></div>
+              <div>Ref: <strong id="dunning-ref-code">DUN-2026-081</strong></div>
+            </div>
+          </div>
+
+          <div class="dunning-subject" id="dunning-preview-subject">
+            Subject: Statement of Account and Upcoming Settlement for Tata Digital Enterprises
+          </div>
+
+          <div class="dunning-body-text" id="dunning-preview-body">
+            <!-- Dynamic Dunning Letter Content -->
+          </div>
+
+          <div style="border-top: 1px dashed #CBD5E1; padding-top: 0.75rem; display: flex; justify-content: space-between; font-size: 0.75rem;">
+            <div>
+              <div><strong>Statutory Law:</strong> MSMED Act 2006, Section 15 &amp; 16</div>
+              <div style="color: #64748B;">Interest Rate: 3x RBI Bank Rate for delayed payments</div>
+            </div>
+            <div style="text-align: right;">
+              <strong>Office of the VP Finance &amp; Treasury</strong>
+              <div style="color: #64748B;">Finnova M-RAL Capital Operations</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.CollectionsApp.closeModal('modal-dunning-notice')">Cancel</button>
+        <button type="button" class="btn btn-outline" id="btn-copy-dunning">Copy Text</button>
+        <button type="button" class="btn btn-primary" id="btn-dispatch-dunning">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          <span>Dispatch Notice to Client</span>
+        </button>
+      </div>
     </div>
+  </div>
 
-    <div style="display: flex; gap: 0.75rem;">
-      <button type="button" class="btn btn-primary" id="btn-action-collections">
-        Test Notification Toast
-      </button>
+  <!-- ========================================================================
+       MODAL 3: DISPUTE AUDIT & RESOLUTION
+       ======================================================================== -->
+  <div id="modal-dispute-details" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="disp-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="disp-modal-title" class="modal-title">Dispute Investigation &amp; Resolution</h3>
+        <button type="button" class="modal-close" onclick="window.CollectionsApp.closeModal('modal-dispute-details')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="background: var(--bg-surface-subtle); border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 1rem; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <strong id="disp-ref-id" style="font-family: var(--font-family-mono); color: var(--color-primary-600);">DISP-2026-014</strong>
+            <span class="status-badge status-at-risk" id="disp-status-badge">Under Review</span>
+          </div>
+          <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;" id="disp-client-name">Larsen &amp; Toubro Heavy Infrastructure</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px;">
+            Invoice: <span id="disp-inv-id" style="font-family: var(--font-family-mono);">INV-2026-084</span> | 
+            Disputed Amount: <strong id="disp-amount" style="color: var(--color-danger);">₹61,36,000</strong>
+          </div>
+          <div style="font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.4;" id="disp-summary-text">
+            Client site engineer milestone acceptance certification document pending verification.
+          </div>
+        </div>
+
+        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">
+          Resolution Action
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <select id="disp-resolution-action" class="form-control">
+            <option value="VALIDATE">Validate Deliverable Proofs (Dismiss Dispute &amp; Request Remittance)</option>
+            <option value="CREDIT_NOTE">Concede Credit Note (Commercial SLA Waiver)</option>
+            <option value="SPLIT_PAYMENT">Approve Staggered Milestone Payment Plan</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <label class="form-label" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Auditor Notes &amp; Rationale</label>
+          <textarea id="disp-notes" class="form-control" rows="3" placeholder="Document the commercial agreement with the client AP desk..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.CollectionsApp.closeModal('modal-dispute-details')">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btn-resolve-dispute">Apply Resolution</button>
+      </div>
     </div>
-  </main>
+  </div>
 
-  <!-- Module Scripts -->
+  <!-- ========================================================================
+       MODAL 4: ACCOUNT COLLECTION HISTORY
+       ======================================================================== -->
+  <div id="modal-account-history" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="hist-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="hist-modal-title" class="modal-title">Account Activity &amp; Audit Log</h3>
+        <button type="button" class="modal-close" onclick="window.CollectionsApp.closeModal('modal-account-history')">&times;</button>
+      </div>
+      <div class="modal-body" style="max-height: calc(80vh - 120px); overflow-y: auto;">
+        <div style="margin-bottom: 1rem;">
+          <h4 id="hist-client-title" style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0 0 2px 0;">Client Account</h4>
+          <div id="hist-contact-meta" style="font-size: 0.75rem; color: var(--text-muted);">Contact: AP Lead | Phone: +91</div>
+        </div>
+
+        <div class="dispute-timeline" id="hist-timeline-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.CollectionsApp.closeModal('modal-account-history')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script src="data.js"></script>
   <script src="collections.js"></script>
 </body>

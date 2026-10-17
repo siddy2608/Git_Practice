@@ -1,75 +1,618 @@
 /**
  * Finnova M-RAL - Collections Management Scoped Styles
+ * Executive Fintech Look (Calm, Trustworthy, Data-Dense)
+ * Indian Enterprise AR Aging, Dunning Notices & Dispute Resolution
  */
 
+/* --------------------------------------------------------------------------
+   Layout & Container
+   -------------------------------------------------------------------------- */
 body {
-  background-color: transparent;
+  background-color: var(--bg-app);
   padding: 1.5rem 2rem 4rem 2rem;
   font-family: var(--font-family-base);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
-.collections-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-xl);
-  padding: 2rem;
-  box-shadow: var(--shadow-sm);
-  max-width: 960px;
+.collections-container {
+  max-width: 1400px;
   margin: 0 auto;
 }
 
+/* --------------------------------------------------------------------------
+   Command Header
+   -------------------------------------------------------------------------- */
 .collections-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--border-color);
   flex-wrap: wrap;
   gap: 1rem;
 }
 
 .collections-title-box h2 {
-  font-size: 1.25rem;
+  font-size: var(--font-size-page-title, 1.375rem);
   font-weight: 700;
   margin: 0 0 4px 0;
   color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .collections-subtitle {
-  font-size: 0.8125rem;
+  font-size: var(--font-size-body, 0.875rem);
   color: var(--text-muted);
   margin: 0;
 }
 
-.collections-grid {
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.efficiency-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--border-radius-full);
+  background: var(--color-accent-50);
+  color: var(--color-accent-600);
+  border: 1px solid var(--color-accent-500);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  font-family: var(--font-family-mono);
+}
+
+/* --------------------------------------------------------------------------
+   KPI Metric Grid
+   -------------------------------------------------------------------------- */
+.kpi-grid-collections {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
-.collections-stat-card {
-  background: var(--bg-surface-secondary, var(--color-slate-50));
+.kpi-card-coll {
+  background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-lg);
   padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 130px;
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+  cursor: pointer;
 }
 
-.collections-stat-label {
-  font-size: 0.75rem;
+.kpi-card-coll:hover {
+  border-color: var(--color-primary-300);
+  transform: translateY(-1px);
+}
+
+.kpi-card-coll.active-filter {
+  border-color: var(--color-primary-600);
+  background: var(--color-primary-50);
+}
+
+html[data-theme="dark"] .kpi-card-coll.active-filter {
+  background: rgba(40, 79, 184, 0.18);
+  border-color: var(--color-primary-400);
+}
+
+.kpi-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.kpi-label-text {
+  font-size: var(--font-size-label, 0.75rem);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--text-muted);
-  margin-bottom: 4px;
 }
 
-.collections-stat-value {
+.kpi-icon-pill {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kpi-icon-pill.blue { background: var(--color-primary-50); color: var(--color-primary-600); }
+.kpi-icon-pill.green { background: var(--color-success-bg); color: var(--color-success); }
+.kpi-icon-pill.amber { background: var(--color-warning-bg); color: var(--color-warning); }
+.kpi-icon-pill.red { background: var(--color-danger-bg); color: var(--color-danger); }
+.kpi-icon-pill.teal { background: var(--color-accent-50); color: var(--color-accent-600); }
+
+.kpi-val {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-primary-600);
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 0.35rem;
   font-variant-numeric: tabular-nums;
+}
+
+.kpi-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  gap: 0.5rem;
+}
+
+.kpi-trend-tag {
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: var(--border-radius-full);
+}
+
+.kpi-trend-tag.positive { background: var(--color-success-bg); color: var(--color-success); }
+.kpi-trend-tag.negative { background: var(--color-danger-bg); color: var(--color-danger); }
+.kpi-trend-tag.neutral { background: var(--bg-surface-subtle); color: var(--text-secondary); }
+
+/* --------------------------------------------------------------------------
+   AR Aging Spectrum Visualizer Bar
+   -------------------------------------------------------------------------- */
+.aging-spectrum-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-card);
+}
+
+.spectrum-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.875rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.spectrum-title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.spectrum-progress-bar {
+  display: flex;
+  height: 16px;
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+  background: var(--bg-surface-subtle);
+  margin-bottom: 0.875rem;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
+}
+
+.spectrum-segment {
+  height: 100%;
+  transition: opacity var(--transition-fast), filter var(--transition-fast);
+  cursor: pointer;
+  position: relative;
+}
+
+.spectrum-segment:hover {
+  filter: brightness(1.1);
+  opacity: 0.9;
+}
+
+.spectrum-segment.seg-current { background: var(--color-success); }
+.spectrum-segment.seg-31-60 { background: var(--color-info); }
+.spectrum-segment.seg-61-90 { background: var(--color-warning); }
+.spectrum-segment.seg-90plus { background: var(--color-danger); }
+
+.spectrum-legend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--border-radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.legend-item:hover {
+  background: var(--bg-surface-subtle);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-dot.green { background: var(--color-success); }
+.legend-dot.blue { background: var(--color-info); }
+.legend-dot.amber { background: var(--color-warning); }
+.legend-dot.red { background: var(--color-danger); }
+
+.legend-val {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   Filter & Search Toolbar
+   -------------------------------------------------------------------------- */
+.toolbar-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-card);
+}
+
+.toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 280px;
+}
+
+.search-input-box {
+  position: relative;
+  flex: 1;
+  max-width: 380px;
+}
+
+.search-icon-svg {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.search-input-field {
+  width: 100%;
+  height: 38px;
+  padding-left: 2.25rem;
+  padding-right: 0.75rem;
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-color-strong);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-primary);
+  font-size: var(--font-size-body);
+}
+
+.search-input-field:focus {
+  outline: none;
+  border-color: var(--color-primary-500);
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+.aging-filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--bg-surface-subtle);
+  padding: 3px;
+  border-radius: var(--border-radius-sm);
+  overflow-x: auto;
+}
+
+.aging-pill-btn {
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius-xs);
+  padding: 5px 10px;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.aging-pill-btn:hover {
+  color: var(--text-primary);
+}
+
+.aging-pill-btn.active {
+  background: var(--bg-surface);
+  color: var(--color-primary-600);
+  font-weight: 600;
+  box-shadow: var(--shadow-xs);
+}
+
+html[data-theme="dark"] .aging-pill-btn.active {
+  background: var(--bg-card);
+  color: var(--color-primary-400);
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.select-filter {
+  height: 38px;
+  padding: 0 0.75rem;
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-color-strong);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-primary);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+}
+
+.select-filter:focus {
+  outline: none;
+  border-color: var(--color-primary-500);
+}
+
+/* --------------------------------------------------------------------------
+   Collections Table
+   -------------------------------------------------------------------------- */
+.collections-table-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.table-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+
+.client-name-bold {
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.collector-subtext {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+}
+
+/* Mini aging bar in table row */
+.row-mini-aging {
+  display: flex;
+  width: 90px;
+  height: 6px;
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+  background: var(--bg-surface-subtle);
+  margin-top: 4px;
+}
+
+.row-aging-seg {
+  height: 100%;
+}
+
+.dunning-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--border-radius-full);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.dunning-badge.none { background: var(--color-neutral-bg); color: var(--color-neutral); border: 1px solid var(--color-neutral-border); }
+.dunning-badge.level-1 { background: var(--color-info-bg); color: var(--color-info); border: 1px solid var(--color-info-border); }
+.dunning-badge.level-2 { background: var(--color-warning-bg); color: var(--color-warning); border: 1px solid var(--color-warning-border); }
+.dunning-badge.level-3 { background: var(--color-danger-bg); color: var(--color-danger); border: 1px solid var(--color-danger-border); }
+.dunning-badge.level-4 { background: #7F1D1D; color: #FEE2E2; border: 1px solid #B91C1C; }
+
+.dispute-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.6875rem;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #FEE2E2;
+  color: #B91C1C;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+html[data-theme="dark"] .dispute-tag {
+  background: rgba(220, 38, 38, 0.2);
+  color: #F87171;
+}
+
+.risk-pill {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--border-radius-full);
+}
+
+.risk-pill.low { background: var(--color-success-bg); color: var(--color-success); }
+.risk-pill.medium { background: var(--color-warning-bg); color: var(--color-warning); }
+.risk-pill.high { background: var(--color-danger-bg); color: var(--color-danger); }
+.risk-pill.critical { background: #7F1D1D; color: #FFFFFF; }
+
+.action-btn-icon {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  border-radius: var(--border-radius-sm);
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.action-btn-icon:hover {
+  background: var(--bg-surface-subtle);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.table-footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  background: var(--bg-surface-subtle);
+  border-top: 1px solid var(--border-color);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   Dunning Notice Modal / Letterhead
+   -------------------------------------------------------------------------- */
+.dunning-paper {
+  background: #FFFFFF;
+  color: #0F172A;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #CBD5E1;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.dunning-letterhead {
+  border-bottom: 2px solid #0F172A;
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dunning-subject {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: #0F172A;
+  background: #F8FAFC;
+  border-left: 3px solid #284FB8;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.dunning-body-text {
+  white-space: pre-line;
+  color: #334155;
+  margin-bottom: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Dispute Drawer & Timeline
+   -------------------------------------------------------------------------- */
+.dispute-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.dispute-timeline-item {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.8125rem;
+}
+
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-primary-600);
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.timeline-content {
+  flex: 1;
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+  .collections-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .toolbar-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .toolbar-left, .toolbar-right {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-input-box {
+    max-width: 100%;
+  }
+  .spectrum-legend {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
