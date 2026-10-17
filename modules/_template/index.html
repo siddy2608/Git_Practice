@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module Template | Finnova M-RAL</title>
+
+  <!-- Bootstrap 5 CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+  <!-- Shared Finnova Design System CSS -->
+  <link rel="stylesheet" href="../../core/css/base.css">
+  <link rel="stylesheet" href="../../core/css/components.css">
+
+  <!-- Module Custom Styles (Rename to <module-id>.css) -->
+  <link rel="stylesheet" href="module.css">
+
+  <script>
+    (function() {
+      const theme = localStorage.getItem("finnova_theme") || "light";
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="template-workspace">
+    <!-- Module Header -->
+    <header class="template-header">
+      <div class="template-title-group">
+        <h1 id="module-display-title" class="template-title">Module Developer Template</h1>
+        <p class="template-subtitle">Standardized boilerplate adhering to the Finnova M-RAL Design System.</p>
+      </div>
+      <div class="template-header-actions">
+        <span class="badge badge-success"><span class="badge-dot"></span> Theme Ready</span>
+        <span class="status-badge status-ready">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path></svg>
+          Canonical Tokens
+        </span>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-export-spec">Export Spec</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-template-action">Trigger Toast</button>
+      </div>
+    </header>
+
+    <!-- KPI Metric Cards Grid -->
+    <section class="kpi-grid">
+      <!-- KPI Card 1: Revenue at Risk -->
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Active Milestone Pipeline</span>
+          <div class="kpi-icon-wrap blue">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"></line>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value">₹ 2,45,80,000</div>
+        <div class="kpi-footer">
+          <span class="kpi-trend positive">↑ +12.4%</span>
+          <span>vs last sprint</span>
+        </div>
+      </div>
+
+      <!-- KPI Card 2: Billed to Date -->
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Recognized Revenue (Q3)</span>
+          <div class="kpi-icon-wrap emerald">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value">₹ 1,82,40,000</div>
+        <div class="kpi-footer">
+          <span class="kpi-trend positive">↑ +8.1%</span>
+          <span>94.2% realization</span>
+        </div>
+      </div>
+
+      <!-- KPI Card 3: Revenue at Risk -->
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Revenue At Risk (Amber/Red)</span>
+          <div class="kpi-icon-wrap rose">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value">₹ 28,50,000</div>
+        <div class="kpi-footer">
+          <span class="kpi-trend negative">↓ -3.2%</span>
+          <span>2 milestones flagged</span>
+        </div>
+      </div>
+
+      <!-- KPI Card 4: DSO Variance -->
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Average Days Sales O/S</span>
+          <div class="kpi-icon-wrap amber">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value">38.4 Days</div>
+        <div class="kpi-footer">
+          <span class="kpi-trend neutral">→ 0.0%</span>
+          <span>Target ≤ 42 days</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Standard Card with Data Table -->
+    <section class="card mb-4">
+      <div class="card-header">
+        <div>
+          <h2 class="card-title">Governance Milestones Portfolio</h2>
+          <p class="card-subtitle">Sample enterprise data table demonstrating sticky headers, tabular-nums alignment, and canonical status pills.</p>
+        </div>
+        <div class="card-actions">
+          <button type="button" class="btn btn-ghost btn-sm">Filter</button>
+          <button type="button" class="btn btn-secondary btn-sm">Download CSV</button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Milestone Ref</th>
+              <th>Engagement / Client</th>
+              <th>Delivery Lead</th>
+              <th>Target Sign-off</th>
+              <th>Status</th>
+              <th class="table-col-numeric">Contract Value (INR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>MS-FIN-401</code></td>
+              <td><strong>HDFC Cloud Banking Transformation</strong></td>
+              <td>Vikram Malhotra</td>
+              <td>28 Oct 2026</td>
+              <td><span class="status-badge status-ready"><span class="badge-dot"></span> Ready to Bill</span></td>
+              <td class="table-col-numeric">₹ 65,00,000</td>
+            </tr>
+            <tr>
+              <td><code>MS-FIN-402</code></td>
+              <td><strong>Axis Core Ledger Modernization</strong></td>
+              <td>Ananya Roy</td>
+              <td>04 Nov 2026</td>
+              <td><span class="status-badge status-in-review"><span class="badge-dot"></span> In Review</span></td>
+              <td class="table-col-numeric">₹ 42,00,000</td>
+            </tr>
+            <tr>
+              <td><code>MS-FIN-403</code></td>
+              <td><strong>ICICI Treasury Settlement Switch</strong></td>
+              <td>Siddharth Sen</td>
+              <td>12 Nov 2026</td>
+              <td><span class="status-badge status-awaiting-sign-off"><span class="badge-dot"></span> Awaiting Sign-off</span></td>
+              <td class="table-col-numeric">₹ 88,50,000</td>
+            </tr>
+            <tr>
+              <td><code>MS-FIN-404</code></td>
+              <td><strong>Tata Capital Reconciliation Engine</strong></td>
+              <td>Pooja Deshmukh</td>
+              <td>18 Nov 2026</td>
+              <td><span class="status-badge status-at-risk"><span class="badge-dot"></span> At Risk (SLA)</span></td>
+              <td class="table-col-numeric">₹ 28,50,000</td>
+            </tr>
+            <tr>
+              <td><code>MS-FIN-405</code></td>
+              <td><strong>Bajaj Finserv Merchant Rails</strong></td>
+              <td>Karan Mehra</td>
+              <td>30 Nov 2026</td>
+              <td><span class="status-badge status-client-accepted"><span class="badge-dot"></span> Client Accepted</span></td>
+              <td class="table-col-numeric">₹ 21,80,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-footer">
+        <div class="text-muted" style="font-size: var(--font-size-xs);">Showing 5 of 34 Active Milestones (Total ₹ 2,45,80,000)</div>
+        <div class="table-pagination" style="display: flex; gap: var(--space-2);">
+          <button type="button" class="btn btn-secondary btn-sm" disabled>Previous</button>
+          <button type="button" class="btn btn-secondary btn-sm">Next</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Developer Implementation Guidelines Card -->
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title">Theme-Compliant Component Quickstart</h2>
+      </div>
+      <div class="card-body">
+        <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
+          When building new modules in <code>modules/&lt;module-id&gt;/</code>, adhere strictly to the following patterns:
+        </p>
+        <ul style="color: var(--text-secondary); font-size: var(--font-size-body); line-height: 1.6; margin-left: 1.25rem;">
+          <li><strong>Zero Hardcoded Hex:</strong> Use CSS variables exclusively (e.g., <code>var(--color-primary-600)</code>, <code>var(--bg-surface)</code>, <code>var(--border-color)</code>).</li>
+          <li><strong>Numbers & Currency:</strong> Always use <code>tabular-nums</code> formatting via <code>font-variant-numeric: tabular-nums;</code> and format with Indian numbering (Lakhs / Crores).</li>
+          <li><strong>Cards:</strong> Use <code>.card</code>, <code>.card-header</code>, <code>.card-title</code>, <code>.card-body</code>, and <code>.card-footer</code>.</li>
+          <li><strong>KPI Metrics:</strong> Use <code>.kpi-grid</code> and <code>.kpi-card</code> with <code>.kpi-label</code>, <code>.kpi-value</code>, and <code>.kpi-trend</code>.</li>
+          <li><strong>Badges:</strong> Use <code>.status-badge</code> with states <code>.status-ready</code>, <code>.status-in-review</code>, <code>.status-awaiting-sign-off</code>, <code>.status-at-risk</code>, <code>.status-client-accepted</code>, or <code>.badge-success</code>, <code>.badge-warning</code>, <code>.badge-danger</code>, <code>.badge-info</code>.</li>
+          <li><strong>Buttons:</strong> Use <code>.btn</code> with <code>.btn-primary</code>, <code>.btn-secondary</code>, <code>.btn-outline</code>, <code>.btn-ghost</code>, <code>.btn-danger</code>.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <!-- Module Scripts (Rename module.js to <module-id>.js) -->
+  <script src="data.js"></script>
+  <script src="module.js"></script>
+</body>
+</html>

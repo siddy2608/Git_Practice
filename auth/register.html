@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Register a demonstration account for the Milestone Readiness, Acceptance & Liquidity Management System.">
+  <title>Create Account | Milestone Readiness, Acceptance & Liquidity</title>
+  
+  <!-- Bootstrap 5 CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+  <!-- Finnova Design System CSS -->
+  <link rel="stylesheet" href="../core/css/base.css">
+  <link rel="stylesheet" href="../core/css/components.css">
+  <link rel="stylesheet" href="../core/css/auth.css">
+  <link rel="stylesheet" href="../core/css/responsive.css">
+  <script>
+    (function() {
+      const theme = localStorage.getItem("finnova_theme") || "light";
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+</head>
+<body class="auth-body">
+
+  <div style="position: absolute; top: 1.25rem; right: 1.5rem; z-index: 10;">
+    <button type="button" class="btn btn-sm btn-outline" id="btn-auth-theme-toggle" style="display: inline-flex; align-items: center; gap: 6px; padding: 0.375rem 0.75rem; border-radius: 9999px; background: var(--bg-card); border-color: var(--border-color); color: var(--text-primary); cursor: pointer;" title="Toggle Dark/Light Mode">
+      <svg id="theme-icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      <span style="font-size: 0.75rem; font-weight: 500;">Theme</span>
+    </button>
+  </div>
+
+  <!-- Masthead Branding -->
+  <header class="auth-brand-masthead">
+    <h1 class="auth-brand-name">Finnova M-RAL</h1>
+    <p class="auth-brand-tagline">Milestone Readiness, Acceptance & Liquidity Management</p>
+  </header>
+
+  <!-- Clean Enterprise Registration Card -->
+  <main class="auth-card auth-card-wide" role="main">
+
+    <div class="auth-card-header">
+      <h2 class="auth-card-title">Create Demonstration Account</h2>
+      <p class="auth-card-subtitle">Register a test profile to evaluate project-to-cash lifecycle workflows.</p>
+    </div>
+
+    <!-- Alert Banner -->
+    <div id="auth-alert-box" class="auth-alert-banner alert-danger" style="display: none;" role="alert">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0; margin-top: 1px;">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <span id="auth-alert-message">Alert message</span>
+    </div>
+
+    <!-- Registration Form -->
+    <form id="form-register" novalidate autocomplete="off">
+      
+      <!-- Row 1: Full Name & Business Email -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        
+        <div class="form-group-clean">
+          <div class="form-label-row">
+            <label for="input-name" class="form-label-text">
+              Full Name <span class="req">*</span>
+            </label>
+          </div>
+          <div class="input-field-wrap">
+            <span class="input-field-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </span>
+            <input 
+              type="text" 
+              id="input-name" 
+              name="name" 
+              class="input-clean" 
+              placeholder="e.g. Jordan Miller" 
+              required
+            >
+          </div>
+          <div id="name-error" class="field-error-msg"></div>
+        </div>
+
+        <div class="form-group-clean">
+          <div class="form-label-row">
+            <label for="input-email" class="form-label-text">
+              Business Email <span class="req">*</span>
+            </label>
+          </div>
+          <div class="input-field-wrap">
+            <span class="input-field-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </span>
+            <input 
+              type="email" 
+              id="input-email" 
+              name="email" 
+              class="input-clean" 
+              placeholder="jordan@company.com" 
+              required
+            >
+          </div>
+          <div id="email-error" class="field-error-msg"></div>
+        </div>
+
+      </div>
+
+      <!-- Row 2: Organization & Functional Role -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        
+        <div class="form-group-clean">
+          <div class="form-label-row">
+            <label for="input-org" class="form-label-text">
+              Company / Organization <span class="req">*</span>
+            </label>
+          </div>
+          <div class="input-field-wrap">
+            <span class="input-field-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            </span>
+            <input 
+              type="text" 
+              id="input-org" 
+              name="organization" 
+              class="input-clean" 
+              placeholder="e.g. Apex Corporation" 
+              required
+            >
+          </div>
+          <div id="org-error" class="field-error-msg"></div>
+        </div>
+
+        <div class="form-group-clean">
+          <div class="form-label-row">
+            <label for="select-role" class="form-label-text">
+              Demonstration Role <span class="req">*</span>
+            </label>
+          </div>
+          <select id="select-role" class="input-clean" style="padding-left: 0.875rem;">
+            <option value="Company User" selected>Company User (Standard)</option>
+            <option value="Financial Analyst">Financial Analyst</option>
+            <option value="Project Lead">Project Delivery Lead</option>
+          </select>
+          <div class="text-xs text-muted" style="margin-top: 3px;">Public registration receives non-admin permissions.</div>
+        </div>
+
+      </div>
+
+      <!-- Row 3: Password & Confirm Password -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        
+        <div class="form-group-clean">
+          <div class="form-label-row">
+            <label for="input-password" class="form-label-text">
+              Password <span class="req">*</span>
+            </label>
+          </div>
+          <div class="input-field-wrap">
+            <span class="input-field-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </span>
+            <input 
+              type="password" 
+              id="input-password" 
+              name="password" 
+              class="input-clean has-trailing-btn" 
+              placeholder="Create password" 
+              required
+            >
+            <button type="button" id="btn-toggle-pwd" class="trailing-toggle-btn" aria-label="Toggle password">
+              <svg id="icon-eye-off" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+              <svg id="icon-eye" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </button>
+          </div>
+          <div id="password-error" class="field-error-msg"></div>
+        </div>
+
+        <div class="form-group-clean">
+          <div class="form-label-row">
+            <label for="input-confirm-password" class="form-label-text">
+              Confirm Password <span class="req">*</span>
+            </label>
+          </div>
+          <div class="input-field-wrap">
+            <span class="input-field-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </span>
+            <input 
+              type="password" 
+              id="input-confirm-password" 
+              name="confirmPassword" 
+              class="input-clean" 
+              placeholder="Confirm password" 
+              required
+            >
+          </div>
+          <div id="confirm-error" class="field-error-msg"></div>
+        </div>
+
+      </div>
+
+      <!-- Password Requirements Card -->
+      <div class="password-requirements-card">
+        <div class="req-card-title">Password Complexity Checklist:</div>
+        <div class="req-items-grid">
+          <div id="req-length" class="clean-req-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"></circle></svg>
+            <span>Min 8 characters</span>
+          </div>
+          <div id="req-upper" class="clean-req-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"></circle></svg>
+            <span>1 uppercase letter (A-Z)</span>
+          </div>
+          <div id="req-num" class="clean-req-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"></circle></svg>
+            <span>1 number (0-9)</span>
+          </div>
+          <div id="req-special" class="clean-req-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"></circle></svg>
+            <span>1 special character (!@#%₹)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terms & Conditions Checkbox -->
+      <div class="remember-row" style="margin-bottom: 1.25rem;">
+        <input type="checkbox" id="check-terms" class="clean-checkbox" required>
+        <label for="check-terms" class="clean-checkbox-label">
+          I accept the <a href="#" id="link-terms" class="form-link">Demonstration Terms</a> and acknowledge this is a simulated prototype.
+        </label>
+      </div>
+      <div id="terms-error" class="field-error-msg" style="margin-top: -0.75rem; margin-bottom: 1rem;"></div>
+
+      <!-- Submit Button -->
+      <button type="submit" id="btn-submit-register" class="btn-auth-primary">
+        <span id="btn-register-text">Complete Registration</span>
+        <svg id="btn-register-spinner" class="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+          <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+          <path d="M12 2a10 10 0 0 1 10 10"></path>
+        </svg>
+      </button>
+
+    </form>
+
+    <!-- Switch to Login -->
+    <div class="auth-card-footer">
+      Already have credentials? 
+      <a href="login.html" id="link-back-login">Sign in here</a>
+    </div>
+
+  </main>
+
+  <!-- Bottom Page Advisory -->
+  <footer class="auth-page-subtext">
+    Milestone Readiness, Acceptance & Liquidity Platform &bull; Simulated Demonstration
+  </footer>
+
+  <!-- Registration Success Modal -->
+  <div id="modal-success" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="success-title">
+    <div class="modal-dialog">
+      <div class="modal-header" style="background-color: var(--color-success-bg);">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <h3 id="success-title" class="modal-title" style="color: var(--color-success-text);">Registration Confirmed!</h3>
+        </div>
+        <button type="button" class="modal-close" id="btn-close-success">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 0.75rem;">
+          Your demonstration account for <strong id="succ-name">User</strong> has been recorded in local browser storage.
+        </p>
+        <div style="background-color: var(--bg-surface-subtle); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.875rem; margin-bottom: 0.875rem; font-size: 0.8125rem;">
+          <div style="margin-bottom: 4px;"><strong>Email:</strong> <span id="succ-email" style="font-family: var(--font-family-mono);"></span></div>
+          <div style="margin-bottom: 4px;"><strong>Organization:</strong> <span id="succ-org"></span></div>
+          <div style="margin-bottom: 4px;"><strong>Assigned Role:</strong> <span class="badge badge-neutral">Company User</span></div>
+          <div><strong>Demonstration Status:</strong> <span class="badge badge-warning">Pending Approval</span></div>
+        </div>
+        <div style="background-color: var(--color-warning-bg); border: 1px solid var(--color-warning-border); border-radius: 6px; padding: 0.65rem; font-size: 0.75rem; color: var(--color-warning-text);">
+          <strong>Security Notice:</strong> Public registrants receive non-privileged status. To access the <strong>Admin Main Dashboard</strong>, sign in with the administrator credentials: <code>admin@finnova.io</code> / <code>Admin@1234</code>.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btn-succ-stay">Stay on Page</button>
+        <button type="button" class="btn btn-primary" id="btn-succ-goto-login">Proceed to Sign In</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../core/js/data/shell-data.js"></script>
+  <script src="../core/js/data/storage.js"></script>
+  <script src="../core/js/services/validation.js"></script>
+  <script src="../core/js/services/permissions.js"></script>
+  <script src="../core/js/services/auth.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("form-register");
+      const nameInput = document.getElementById("input-name");
+      const emailInput = document.getElementById("input-email");
+      const orgInput = document.getElementById("input-org");
+      const roleSelect = document.getElementById("select-role");
+      const pwdInput = document.getElementById("input-password");
+      const confirmInput = document.getElementById("input-confirm-password");
+      const termsCheck = document.getElementById("check-terms");
+      const submitBtn = document.getElementById("btn-submit-register");
+      const submitText = document.getElementById("btn-register-text");
+      const spinner = document.getElementById("btn-register-spinner");
+
+      const nameError = document.getElementById("name-error");
+      const emailError = document.getElementById("email-error");
+      const orgError = document.getElementById("org-error");
+      const pwdError = document.getElementById("password-error");
+      const confirmError = document.getElementById("confirm-error");
+      const termsError = document.getElementById("terms-error");
+      const alertBox = document.getElementById("auth-alert-box");
+      const alertMsg = document.getElementById("auth-alert-message");
+
+      const togglePwdBtn = document.getElementById("btn-toggle-pwd");
+      const iconEye = document.getElementById("icon-eye");
+      const iconEyeOff = document.getElementById("icon-eye-off");
+
+      const reqLength = document.getElementById("req-length");
+      const reqUpper = document.getElementById("req-upper");
+      const reqNum = document.getElementById("req-num");
+      const reqSpecial = document.getElementById("req-special");
+
+      togglePwdBtn.addEventListener("click", () => {
+        const isPassword = pwdInput.getAttribute("type") === "password";
+        pwdInput.setAttribute("type", isPassword ? "text" : "password");
+        iconEye.style.display = isPassword ? "block" : "none";
+        iconEyeOff.style.display = isPassword ? "none" : "block";
+      });
+
+      // Theme Toggle Handler
+      const authThemeBtn = document.getElementById("btn-auth-theme-toggle");
+      if (authThemeBtn) {
+        authThemeBtn.addEventListener("click", () => {
+          const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+          const next = current === "dark" ? "light" : "dark";
+          document.documentElement.setAttribute("data-theme", next);
+          localStorage.setItem("finnova_theme", next);
+        });
+      }
+
+      // Blur validation handlers
+      nameInput.addEventListener("blur", () => {
+        const val = nameInput.value.trim();
+        if (!window.FinnovaValidation.isNonEmpty(val)) {
+          showInputError(nameInput, nameError, "Full name is required.");
+        } else {
+          clearInputError(nameInput, nameError);
+        }
+      });
+
+      emailInput.addEventListener("blur", () => {
+        const val = emailInput.value.trim();
+        if (!window.FinnovaValidation.isNonEmpty(val)) {
+          showInputError(emailInput, emailError, "Business email is required.");
+        } else if (!window.FinnovaValidation.isValidEmail(val)) {
+          showInputError(emailInput, emailError, "Please enter a valid business email address.");
+        } else {
+          clearInputError(emailInput, emailError);
+        }
+      });
+
+      orgInput.addEventListener("blur", () => {
+        const val = orgInput.value.trim();
+        if (!window.FinnovaValidation.isNonEmpty(val)) {
+          showInputError(orgInput, orgError, "Company / Organization name is required.");
+        } else {
+          clearInputError(orgInput, orgError);
+        }
+      });
+
+      pwdInput.addEventListener("blur", () => {
+        const status = window.FinnovaValidation.checkPassword(pwdInput.value);
+        if (!status.isValid) {
+          showInputError(pwdInput, pwdError, "Password must satisfy all complexity checklist rules.");
+        } else {
+          clearInputError(pwdInput, pwdError);
+        }
+      });
+
+      confirmInput.addEventListener("blur", () => {
+        if (!confirmInput.value) {
+          showInputError(confirmInput, confirmError, "Please confirm your password.");
+        } else if (confirmInput.value !== pwdInput.value) {
+          showInputError(confirmInput, confirmError, "Passwords do not match.");
+        } else {
+          clearInputError(confirmInput, confirmError);
+        }
+      });
+
+      // Realtime input cleanups
+      nameInput.addEventListener("input", () => {
+        if (nameInput.value.trim().length > 0) clearInputError(nameInput, nameError);
+      });
+
+      emailInput.addEventListener("input", () => {
+        if (emailInput.value.trim().length > 0) clearInputError(emailInput, emailError);
+      });
+
+      orgInput.addEventListener("input", () => {
+        if (orgInput.value.trim().length > 0) clearInputError(orgInput, orgError);
+      });
+
+      pwdInput.addEventListener("input", () => {
+        const status = window.FinnovaValidation.checkPassword(pwdInput.value);
+        updateReq(reqLength, status.hasMinLength);
+        updateReq(reqUpper, status.hasUppercase);
+        updateReq(reqNum, status.hasNumber);
+        updateReq(reqSpecial, status.hasSpecial);
+
+        if (status.isValid) {
+          clearInputError(pwdInput, pwdError);
+        }
+      });
+
+      function updateReq(el, isMet) {
+        if (isMet) {
+          el.classList.add("met");
+          el.querySelector("svg").innerHTML = `<polyline points="20 6 9 17 4 12"></polyline>`;
+        } else {
+          el.classList.remove("met");
+          el.querySelector("svg").innerHTML = `<circle cx="12" cy="12" r="9"></circle>`;
+        }
+      }
+
+      confirmInput.addEventListener("input", () => {
+        if (confirmInput.value === pwdInput.value) {
+          clearInputError(confirmInput, confirmError);
+        }
+      });
+
+      termsCheck.addEventListener("change", () => {
+        if (termsCheck.checked) {
+          termsError.style.display = "none";
+        }
+      });
+
+      document.getElementById("link-terms").addEventListener("click", (e) => {
+        e.preventDefault();
+        alert("Demonstration Terms: You acknowledge this system is a local frontend prototype. No real commercial or banking operations are conducted.");
+      });
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        const fullName = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const organization = orgInput.value.trim();
+        const role = roleSelect.value;
+        const password = pwdInput.value;
+        const confirmPassword = confirmInput.value;
+        const termsAccepted = termsCheck.checked;
+
+        let hasError = false;
+
+        if (!window.FinnovaValidation.isNonEmpty(fullName)) {
+          showInputError(nameInput, nameError, "Full name is required.");
+          hasError = true;
+        } else {
+          clearInputError(nameInput, nameError);
+        }
+
+        if (!window.FinnovaValidation.isNonEmpty(email)) {
+          showInputError(emailInput, emailError, "Email is required.");
+          hasError = true;
+        } else if (!window.FinnovaValidation.isValidEmail(email)) {
+          showInputError(emailInput, emailError, "Please enter a valid business email address.");
+          hasError = true;
+        } else {
+          clearInputError(emailInput, emailError);
+        }
+
+        if (!window.FinnovaValidation.isNonEmpty(organization)) {
+          showInputError(orgInput, orgError, "Organization name is required.");
+          hasError = true;
+        } else {
+          clearInputError(orgInput, orgError);
+        }
+
+        const pwdStatus = window.FinnovaValidation.checkPassword(password);
+        if (!pwdStatus.isValid) {
+          showInputError(pwdInput, pwdError, "Password must satisfy all complexity requirements.");
+          hasError = true;
+        } else {
+          clearInputError(pwdInput, pwdError);
+        }
+
+        if (!confirmPassword) {
+          showInputError(confirmInput, confirmError, "Please confirm your password.");
+          hasError = true;
+        } else if (password !== confirmPassword) {
+          showInputError(confirmInput, confirmError, "Passwords do not match.");
+          hasError = true;
+        } else {
+          clearInputError(confirmInput, confirmError);
+        }
+
+        if (!termsAccepted) {
+          termsError.textContent = "You must accept the demonstration terms.";
+          termsError.style.display = "flex";
+          hasError = true;
+        } else {
+          termsError.style.display = "none";
+        }
+
+        if (hasError) return;
+
+        setLoading(true);
+
+        try {
+          const res = await window.FinnovaAuth.register({
+            fullName,
+            email,
+            organization,
+            password,
+            confirmPassword,
+            termsAccepted
+          });
+
+          setLoading(false);
+
+          if (!res.success) {
+            if (res.field === "email") {
+              showInputError(emailInput, emailError, res.message);
+            }
+            showAlert(res.message);
+            return;
+          }
+
+          document.getElementById("succ-name").textContent = res.user.fullName;
+          document.getElementById("succ-email").textContent = res.user.email;
+          document.getElementById("succ-org").textContent = res.user.organization;
+          document.getElementById("modal-success").classList.add("show");
+
+        } catch (err) {
+          console.error("Registration error:", err);
+          showAlert("An unexpected error occurred while processing registration.");
+          setLoading(false);
+        }
+      });
+
+      document.getElementById("btn-succ-goto-login").addEventListener("click", () => {
+        window.location.href = window.FinnovaAuth.LOGIN_URL || "login.html";
+      });
+      document.getElementById("btn-close-success").addEventListener("click", () => {
+        document.getElementById("modal-success").classList.remove("show");
+      });
+      document.getElementById("btn-succ-stay").addEventListener("click", () => {
+        document.getElementById("modal-success").classList.remove("show");
+        form.reset();
+      });
+
+      function showInputError(input, errorEl, msg) {
+        input.classList.add("is-invalid");
+        errorEl.textContent = msg;
+        errorEl.style.display = "flex";
+      }
+
+      function clearInputError(input, errorEl) {
+        input.classList.remove("is-invalid");
+        errorEl.textContent = "";
+        errorEl.style.display = "none";
+      }
+
+      function setLoading(isLoading) {
+        submitBtn.disabled = isLoading;
+        spinner.style.display = isLoading ? "inline-block" : "none";
+        submitText.textContent = isLoading ? "Registering..." : "Complete Registration";
+      }
+
+      function showAlert(msg) {
+        alertMsg.textContent = msg;
+        alertBox.style.display = "flex";
+      }
+
+      function hideAlert() {
+        alertBox.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>

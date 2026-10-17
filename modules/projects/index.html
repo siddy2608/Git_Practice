@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Management | Finnova M-RAL</title>
+
+  <!-- Bootstrap 5 CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+  <!-- Shared Finnova Design System CSS -->
+  <link rel="stylesheet" href="../../core/css/base.css">
+  <link rel="stylesheet" href="../../core/css/components.css">
+
+  <!-- Module Custom Styles -->
+  <link rel="stylesheet" href="projects.css">
+
+  <script>
+    (function() {
+      const theme = localStorage.getItem("finnova_theme") || "light";
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+</head>
+<body>
+
+  <main class="projects-card">
+    <header class="projects-header">
+      <div class="projects-title-box">
+        <h2>Project Management</h2>
+        <p class="projects-subtitle">Project setup, scope breakdown, budget baselines, client stakeholders, and milestone schedules.</p>
+      </div>
+      <div>
+        <span class="badge badge-sprint">Sprint 2</span>
+      </div>
+    </header>
+
+    <div class="projects-grid">
+      <div class="projects-stat-card">
+        <div class="projects-stat-label">Category</div>
+        <div class="projects-stat-value" style="font-size: 1.125rem;">Project Operations</div>
+      </div>
+      <div class="projects-stat-card">
+        <div class="projects-stat-label">Status</div>
+        <div class="projects-stat-value" style="font-size: 1.125rem;">Pending</div>
+      </div>
+      <div class="projects-stat-card">
+        <div class="projects-stat-label">Standard</div>
+        <div class="projects-stat-value" style="font-size: 1.125rem;">INR (₹) Lakhs/Crores</div>
+      </div>
+    </div>
+
+    <div style="background: var(--bg-surface-secondary, var(--color-slate-50)); border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 1.25rem; font-size: 0.8125rem; line-height: 1.5; color: var(--text-secondary); margin-bottom: 1.5rem;">
+      <strong>Developer Workspace:</strong>
+      <p style="margin: 0.25rem 0 0 0;">
+        This module is ready for parallel development. Work strictly inside <code>modules/projects/</code>.
+        To preview your module in the master dashboard, update <code>path</code> in <code>modules/projects/module.config.js</code> to <code>modules/projects/index.html</code> and set <code>status: "ready"</code>.
+      </p>
+    </div>
+
+    <div style="display: flex; gap: 0.75rem;">
+      <button type="button" class="btn btn-primary" id="btn-action-projects">
+        Test Notification Toast
+      </button>
+    </div>
+  </main>
+
+  <!-- Module Scripts -->
+  <script src="data.js"></script>
+  <script src="projects.js"></script>
+</body>
+</html>

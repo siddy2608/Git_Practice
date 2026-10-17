@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Liquidity Pulse & Governance Gates | Finnova M-RAL</title>
+
+  <!-- Bootstrap 5 CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+  <!-- Shared Finnova Design System CSS -->
+  <link rel="stylesheet" href="../../core/css/base.css">
+  <link rel="stylesheet" href="../../core/css/components.css">
+
+  <link rel="stylesheet" href="overview.css">
+</head>
+<body>
+
+  <!-- Top Executive Command Bar -->
+  <header class="command-header-card">
+    <div class="header-branding-block">
+      <h2>
+        Executive Liquidity Pulse & Governance Gates
+        <span class="pulse-badge">
+          <span class="pulse-dot"></span> Live Treasury Feed
+        </span>
+      </h2>
+      <p class="header-subtext">Portfolio-wide milestone acceptance, contract release verification, and working capital telemetry (INR ₹).</p>
+    </div>
+
+    <!-- Actions & Controls -->
+    <div class="header-actions-row">
+      <!-- Enforced Indian Currency Indicator -->
+      <div class="inr-currency-pill" title="National Indian Rupee (INR ₹) Standard Enforced">
+        <span class="badge-dot" style="background:var(--color-success); width:7px; height:7px; border-radius:50%; display:inline-block;"></span>
+        <span>INR (₹) Base</span>
+      </div>
+
+      <!-- CSV Export Trigger -->
+      <button type="button" class="action-btn-clean" id="btn-export-csv" title="Download Complete Milestones Audit Ledger in INR">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>Export CSV</span>
+      </button>
+
+      <!-- Live Sync Trigger -->
+      <button type="button" class="action-btn-clean" id="btn-sync-feed" title="Re-sync telemetry with treasury ledger">
+        <svg id="sync-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+        <span>Sync</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Interactive Quick Guidance Strip -->
+  <div class="guide-strip" id="guide-onboarding-strip">
+    <div class="guide-strip-left">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary-600)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      <span><strong>Finnova Executive Pulse:</strong> 9 Milestones currently awaiting client acceptance (₹3.12 Cr). Expedited sign-offs reduce DSO by up to 18.1 days.</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button type="button" class="guide-chip" id="chip-jump-sim">⚡ Run Simulator</button>
+      <button type="button" class="guide-chip" id="chip-filter-ready">✓ Filter Ready (₹2.45 Cr)</button>
+      <button type="button" style="background: none; border: none; color: inherit; cursor: pointer; font-size: 1.125rem;" onclick="document.getElementById('guide-onboarding-strip').style.display='none'">&times;</button>
+    </div>
+  </div>
+
+  <!-- 8 Interactive KPI Cards Grid (4 Col Desktop, 2 Tablet, 1 Mobile) -->
+  <section class="kpi-cards-grid" aria-label="Executive Financial Cards">
+    
+    <!-- 1. Active Projects -->
+    <div class="interactive-kpi-card" data-metric="PROJECTS" tabindex="0" title="Click to filter projects in table">
+      <div class="kpi-card-header">
+        <span class="kpi-title-text">Active Projects</span>
+        <div class="kpi-badge-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        </div>
+      </div>
+      <div class="kpi-value-row">
+        <div class="kpi-main-number">28 Projects</div>
+        <svg class="sparkline-svg" viewBox="0 0 58 24">
+          <path d="M2 18 L16 14 L30 15 L44 9 L56 4" fill="none" stroke="var(--chart-series-1)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="kpi-footer-row">
+        <span class="badge bg-success-subtle text-success fw-semibold">↑ +3 new</span>
+        <span class="text-muted">₹34.80 Cr portfolio value</span>
+      </div>
+    </div>
+
+    <!-- 2. Awaiting Readiness -->
+    <div class="interactive-kpi-card" data-metric="READY" tabindex="0" title="Click to filter milestones awaiting readiness">
+      <div class="kpi-card-header">
+        <span class="kpi-title-text">Awaiting Readiness</span>
+        <div class="kpi-badge-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+        </div>
+      </div>
+      <div class="kpi-value-row">
+        <div class="kpi-main-number">14 Milestones</div>
+        <svg class="sparkline-svg" viewBox="0 0 58 24">
+          <path d="M2 12 L16 10 L30 14 L44 8 L56 7" fill="none" stroke="var(--chart-series-2)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="kpi-footer-row">
+        <span class="badge bg-secondary-subtle text-secondary fw-semibold">4 critical path</span>
+        <span class="text-muted">₹4.85 Cr across 6 accounts</span>
+      </div>
+    </div>
+
+    <!-- 3. Awaiting Acceptance -->
+    <div class="interactive-kpi-card" data-metric="ACCEPTANCE" tabindex="0" title="Click to filter awaiting client acceptance">
+      <div class="kpi-card-header">
+        <span class="kpi-title-text">Awaiting Acceptance</span>
+        <div class="kpi-badge-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+        </div>
+      </div>
+      <div class="kpi-value-row">
+        <div class="kpi-main-number">9 Milestones</div>
+        <svg class="sparkline-svg" viewBox="0 0 58 24">
+          <path d="M2 6 L16 8 L30 6 L44 14 L56 18" fill="none" stroke="var(--chart-series-3)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="kpi-footer-row">
+        <span class="badge bg-warning-subtle text-warning fw-semibold">2 aging &gt; 7d</span>
+        <span class="text-muted">₹3.12 Cr pending sign-off</span>
+      </div>
+    </div>
+
+    <!-- 4. Accepted / Ready to Bill -->
+    <div class="interactive-kpi-card" data-metric="BILLING" tabindex="0" title="Click to filter accepted / unbilled">
+      <div class="kpi-card-header">
+        <span class="kpi-title-text">Accepted / Unbilled</span>
+        <div class="kpi-badge-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        </div>
+      </div>
+      <div class="kpi-value-row">
+        <div class="kpi-main-number" id="kpi-val-unbilled">₹2.45 Cr</div>
+        <svg class="sparkline-svg" viewBox="0 0 58 24">
+          <path d="M2 20 L16 16 L30 14 L44 6 L56 4" fill="none" stroke="var(--chart-series-2)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="kpi-footer-row">
+        <span class="badge bg-success-subtle text-success fw-semibold">Ready to Bill</span>
+        <span class="text-muted">Eligible for instant release</span>
+      </div>
+    </div>
+
+    <!-- 5. Outstanding Receivables -->
+    <div class="interactive-kpi-card" data-metric="RECEIVABLES" tabindex="0" title="Click to view receivables">
+      <div class="kpi-card-header">
+        <span class="kpi-title-text">Outstanding Receivables</span>
+        <div class="kpi-badge-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+        </div>
+      </div>
+      <div class="kpi-value-row">
+        <div class="kpi-main-number" id="kpi-val-ar">₹6.82 Cr</div>
+        <svg class="sparkline-svg" viewBox="0 0 58 24">
+          <path d="M2 8 L16 11 L30 9 L44 13 L56 12" fill="none" stroke="var(--chart-series-6)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="kpi-footer-row">
+        <span class="badge bg-secondary-subtle text-secondary fw-semibold" id="kpi-badge-dso">DSO: 38.5 Days</span>
+        <span class="text-muted">Net 30 terms weighted avg</span>
+      </div>
+    </div>
+
+    <!-- 6. Overdue Invoices -->
+    <div class="interactive-kpi-card" data-metric="OVERDUE" tabindex="0" title="Click to view overdue items">
+      <div class="kpi-card-header">
+        <span class="kpi-title-text">Overdue Invoices</span>
+        <div class="kpi-badge-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        </div>
+      </div>
+      <div class="kpi-value-row">
+        <div class="kpi-main-number" id="kpi-val-overdue">₹1.18 Cr</div>
+        <svg class="sparkline-svg" viewBox="0 0 58 24">
+          <path d="M2 14 L16 14 L30 12 L44 16 L56 19" fill="none" stroke="var(--chart-series-4)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="kpi-footer-row">
+        <span class="badge bg-danger-subtle text-danger fw-semibold">7 notices sent</span>
+        <span class="text-muted">2 in 30+ day aging</span>
+      </div>
+    </div>
+
+    <!-- 7. Cash Position -->
+    <div class="interactive-kpi-card" data-metric="CASH" tabindex="0" title="Operating cash position">
+      <div class="kpi-card-header">
+        <span class="kpi-title-text">Cash Position</span>
+        <div class="kpi-badge-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        </div>
+      </div>
+      <div class="kpi-value-row">
+        <div class="kpi-main-number" id="kpi-val-cash">₹18.45 Cr</div>
+        <svg class="sparkline-svg" viewBox="0 0 58 24">
+          <path d="M2 18 L16 15 L30 16 L44 10 L56 6" fill="none" stroke="var(--chart-series-2)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="kpi-footer-row">
+        <span class="badge bg-success-subtle text-success fw-semibold">+12.4% buffer</span>
+        <span class="text-muted">142% operating coverage</span>
+      </div>
+    </div>
+
+    <!-- 8. Funding Gap Forecast -->
+    <div class="interactive-kpi-card" data-metric="GAP" tabindex="0" title="30-day runway forecast">
+      <div class="kpi-card-header">
+        <span class="kpi-title-text">Funding Gap Forecast</span>
+        <div class="kpi-badge-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+        </div>
+      </div>
+      <div class="kpi-value-row">
+        <div class="kpi-main-number">₹0</div>
+        <svg class="sparkline-svg" viewBox="0 0 58 24">
+          <path d="M2 12 L16 12 L30 12 L44 12 L56 12" fill="none" stroke="var(--chart-series-2)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="kpi-footer-row">
+        <span class="badge bg-success-subtle text-success fw-semibold">Runway Secure</span>
+        <span class="text-muted">+₹4.15 Cr cushion</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Creative Liquidity & Runway Visualizer (Interactive SVG Horizon Chart with ₹ Axis) -->
+  <section class="visualizer-card" aria-label="Interactive Liquidity Chart">
+    <div class="visualizer-header">
+      <div class="visualizer-title">
+        <h3>Cashflow Runway & Milestone Release Trajectory</h3>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">Interactive 6-Month cash liquidity projection curve (INR). Hover over milestone nodes for clearance details.</span>
+      </div>
+      <div class="visualizer-stats-pills">
+        <div class="v-stat-item">
+          <span class="v-stat-label">Projected Inflow</span>
+          <span class="v-stat-val text-success">+₹4.85 Cr</span>
+        </div>
+        <div class="v-stat-item">
+          <span class="v-stat-label">Accelerated Release</span>
+          <span class="v-stat-val text-primary">+₹2.45 Cr</span>
+        </div>
+        <div class="v-stat-item">
+          <span class="v-stat-label">Runway Health</span>
+          <span class="v-stat-val">142% Buffer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-container-wrap" id="chart-wrap">
+      <!-- Floating Hover Tooltip -->
+      <div id="chart-tooltip" class="chart-tooltip-box"></div>
+
+      <svg class="chart-svg" viewBox="0 0 850 180" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--color-primary-500)" stop-opacity="0.32"/>
+            <stop offset="100%" stop-color="var(--color-primary-500)" stop-opacity="0.0"/>
+          </linearGradient>
+        </defs>
+        
+        <!-- Y-Axis Grid lines & ₹ Axis Labels -->
+        <g class="chart-grid-group" stroke="rgba(148, 163, 184, 0.2)" stroke-width="1" stroke-dasharray="4 4">
+          <line x1="60" y1="25" x2="840" y2="25"/>
+          <line x1="60" y1="65" x2="840" y2="65"/>
+          <line x1="60" y1="105" x2="840" y2="105"/>
+          <line x1="60" y1="145" x2="840" y2="145"/>
+        </g>
+
+        <!-- Y-Axis INR Labels -->
+        <g fill="var(--text-muted)" font-size="10" font-family="Inter, sans-serif" text-anchor="end">
+          <text x="52" y="29">₹25 Cr</text>
+          <text x="52" y="69">₹20 Cr</text>
+          <text x="52" y="109">₹15 Cr</text>
+          <text x="52" y="149">₹10 Cr</text>
+        </g>
+
+        <!-- X-Axis Timeline Month Labels -->
+        <g fill="var(--text-muted)" font-size="10" font-family="Inter, sans-serif" text-anchor="middle">
+          <text x="80" y="172">Apr '26</text>
+          <text x="230" y="172">May '26</text>
+          <text x="380" y="172">Jun '26</text>
+          <text x="530" y="172">Jul '26</text>
+          <text x="680" y="172">Aug '26</text>
+          <text x="820" y="172">Sep '26</text>
+        </g>
+
+        <!-- Safety Baseline Line (₹12 Cr) -->
+        <line x1="60" y1="125" x2="840" y2="125" stroke="var(--color-danger)" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.6"/>
+
+        <!-- Area Fill Under Trajectory Curve -->
+        <polygon points="80,150 80,115 230,95 380,110 530,65 680,45 820,25 820,150" fill="url(#chartGrad)"/>
+
+        <!-- Main Trend Line (Cubic Spline) -->
+        <path d="M80,115 C155,105 185,100 230,95 C305,85 330,115 380,110 C455,100 480,70 530,65 C605,60 630,48 680,45 C750,40 780,30 820,25" 
+              fill="none" stroke="var(--chart-series-1)" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Milestone Checkpoint Nodes (Interactive hover nodes) -->
+        <circle class="chart-node" cx="230" cy="95" r="5.5" fill="var(--bg-surface)" stroke="var(--chart-series-1)" stroke-width="3"
+                data-info="M-301: HDFC Clearing Gateway (₹1.25 Cr) - Accepted & Ready to Bill"/>
+        <circle class="chart-node" cx="380" cy="110" r="5.5" fill="var(--bg-surface)" stroke="var(--chart-series-3)" stroke-width="3"
+                data-info="M-402: Tata Database Cutover (₹85.0 L) - Awaiting Client Sign-Off"/>
+        <circle class="chart-node" cx="530" cy="65" r="5.5" fill="var(--bg-surface)" stroke="var(--chart-series-2)" stroke-width="3"
+                data-info="M-103: Mahindra SCADA Integration (₹98.0 L) - Ready to Bill"/>
+        <circle class="chart-node" cx="680" cy="45" r="5.5" fill="var(--bg-surface)" stroke="var(--chart-series-1)" stroke-width="3"
+                data-info="M-204: Reliance Customs API (₹42.0 L) - Stage 1 In Review"/>
+        <circle class="chart-node" cx="820" cy="25" r="6.5" fill="var(--chart-series-2)" stroke="var(--bg-surface)" stroke-width="2.5"
+                data-info="Q3 Forecast Cushion (+₹4.15 Cr projected runway surplus)"/>
+      </svg>
+    </div>
+
+    <!-- Chart Legend -->
+    <div class="chart-legend-row">
+      <div class="legend-item">
+        <span class="legend-dot" style="background:var(--chart-series-1);"></span>
+        <span>Projected Liquidity Trajectory</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot" style="background:var(--chart-series-2);"></span>
+        <span>Ready to Bill Milestones</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot" style="background:var(--chart-series-3);"></span>
+        <span>Awaiting Client Sign-off</span>
+      </div>
+      <div class="legend-item">
+        <span style="width: 14px; height: 2px; background:var(--color-danger); border-top: 1px dashed var(--color-danger); display:inline-block;"></span>
+        <span>Treasury Reserve Line (₹12 Cr)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Interactive Liquidity Acceleration Simulator Widget -->
+  <section class="simulator-card" id="liquidity-simulator-box" aria-label="Interactive Liquidity Simulator">
+    <div class="simulator-top-row">
+      <div class="simulator-title-block">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary-400)" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          Milestone Acceptance & Liquidity Acceleration Simulator
+        </h3>
+        <p style="font-size: 0.8125rem; color: var(--text-muted); margin: 0;">
+          Drag the acceleration slider to model instant working capital release from client sign-offs and reduced invoicing lag (in INR).
+        </p>
+      </div>
+      <div>
+        <span class="badge bg-primary-subtle text-primary fw-semibold" style="font-size: 0.75rem; padding: 5px 10px;">Executive Modeling Engine</span>
+      </div>
+    </div>
+
+    <!-- Range Slider -->
+    <div class="sim-slider-container">
+      <div class="sim-slider-labels">
+        <span>Current Baseline (0% Acceleration)</span>
+        <span id="slider-percentage-display" style="color: var(--color-primary-interactive); font-weight: 700;">50% Sign-off Velocity</span>
+        <span>Aggressive Acceleration (100%)</span>
+      </div>
+      <input type="range" class="sim-range-input" id="sim-slider" min="0" max="100" value="50" aria-label="Sign-off velocity percentage">
+    </div>
+
+    <!-- Live Dynamic Metrics Grid (With Clear Before/After Baseline Comparison) -->
+    <div class="sim-metrics-grid">
+      <div class="sim-metric-box">
+        <div class="sim-metric-label">Simulated Released Liquidity</div>
+        <div class="sim-metric-num" id="sim-val-cash">₹4,87,50,000</div>
+        <div class="sim-metric-delta" id="sim-delta-cash">↑ +₹2.42 Cr vs baseline</div>
+      </div>
+      <div class="sim-metric-box">
+        <div class="sim-metric-label">Days Sales Outstanding (DSO)</div>
+        <div class="sim-metric-num" id="sim-val-dso">28.8 Days</div>
+        <div class="sim-metric-delta" id="sim-delta-dso">↓ -9.7 Days turnaround</div>
+      </div>
+      <div class="sim-metric-box">
+        <div class="sim-metric-label">Cash Conversion Cycle (CCC)</div>
+        <div class="sim-metric-num" id="sim-val-ccc">24.2 Days</div>
+        <div class="sim-metric-delta" id="sim-delta-ccc">↓ -12.4 Days improvement</div>
+      </div>
+      <div class="sim-metric-box">
+        <div class="sim-metric-label">Working Capital Cushion</div>
+        <div class="sim-metric-num" id="sim-val-cushion">+₹6,57,50,000</div>
+        <div class="sim-metric-delta" id="sim-delta-cushion">↑ Zero deficit guarantee</div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="sim-actions-row">
+      <button type="button" class="sim-reset-btn" id="btn-sim-reset">Reset to Baseline</button>
+      <button type="button" class="sim-apply-btn" id="btn-sim-apply">⚡ Apply Scenario to Ledger</button>
+    </div>
+  </section>
+
+  <!-- Dual-View Section: [Table Ledger] vs [Kanban Pipeline Board] -->
+  <section class="pipeline-section-card" aria-label="Milestones Pipeline Ledger">
+    <div class="pipeline-top-controls">
+      <div class="pipeline-left-controls">
+        <h3 style="font-size: 1.0625rem; font-weight: 700; margin: 0; color: var(--text-primary);">Milestone Gateways & Liquidity Ledger</h3>
+        
+        <!-- Live Instant Search -->
+        <div class="search-input-wrap">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="table-search-input" placeholder="Search milestones, clients, cities..." aria-label="Search milestone ledger">
+        </div>
+      </div>
+
+      <!-- View Switcher -->
+      <div class="view-mode-toggle" role="group" aria-label="View toggle">
+        <button type="button" class="view-toggle-btn active" id="btn-view-table">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+          <span>Ledger Table</span>
+        </button>
+        <button type="button" class="view-toggle-btn" id="btn-view-kanban">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="18" rx="1"></rect><rect x="14" y="3" width="7" height="11" rx="1"></rect></svg>
+          <span>Pipeline Kanban</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Filter Chips -->
+    <div class="filter-chips-row" role="tablist">
+      <button type="button" class="filter-chip-btn active" data-filter="ALL">All Milestones (<span id="count-all">10</span>)</button>
+      <button type="button" class="filter-chip-btn" data-filter="ACTION">⚡ Action Required (<span id="count-action">4</span>)</button>
+      <button type="button" class="filter-chip-btn" data-filter="READY">✓ Ready to Bill (<span id="count-ready">3</span>)</button>
+      <button type="button" class="filter-chip-btn" data-filter="RISK">⚠ At Risk / Blocked (<span id="count-risk">1</span>)</button>
+      <button type="button" class="filter-chip-btn" data-filter="ACCEPTED">Client Accepted (<span id="count-accepted">4</span>)</button>
+    </div>
+
+    <!-- VIEW 1: Table Ledger View (Fixed Column Layout, Tooltips, Sticky Header) -->
+    <div class="ledger-table-wrap" id="ledger-table-view">
+      <table class="milestone-data-table" id="milestones-table">
+        <colgroup>
+          <col style="width: 100px;">
+          <col style="width: 230px;">
+          <col style="width: 260px;">
+          <col style="width: 140px;">
+          <col style="width: 140px;">
+          <col style="width: 180px;">
+          <col style="width: 150px;">
+          <col style="width: 120px;">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Milestone Code</th>
+            <th>Project & Client</th>
+            <th>Milestone Deliverable</th>
+            <th style="text-align: right;">Contract Value (INR)</th>
+            <th>Readiness Audit</th>
+            <th>Acceptance Status</th>
+            <th>Billing Gateway</th>
+            <th style="text-align: center;">Action</th>
+          </tr>
+        </thead>
+        <tbody id="milestones-tbody">
+          <!-- Rendered dynamically via JS -->
+        </tbody>
+      </table>
+
+      <!-- Empty State Container -->
+      <div id="table-empty-state" class="state-box" style="display: none;">
+        <div class="state-box-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+        <div class="state-box-title">No Milestones Found</div>
+        <div class="state-box-desc">No milestone records match your search or active filter criteria.</div>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-table-search">Clear Search Filter</button>
+      </div>
+    </div>
+
+    <!-- VIEW 2: Pipeline Kanban Board View -->
+    <div class="kanban-board-container" id="pipeline-kanban-view">
+      <!-- 1. Readiness Gate -->
+      <div class="kanban-column" id="k-col-readiness">
+        <div class="kanban-col-header">
+          <span class="kanban-col-title">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--chart-series-1);"></span>
+            1. Readiness Gate
+          </span>
+          <span class="kanban-col-count" id="k-count-1">3</span>
+        </div>
+        <div class="kanban-cards-wrap" id="k-items-1"></div>
+      </div>
+
+      <!-- 2. Client Review -->
+      <div class="kanban-column" id="k-col-review">
+        <div class="kanban-col-header">
+          <span class="kanban-col-title">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--chart-series-3);"></span>
+            2. Client Verification
+          </span>
+          <span class="kanban-col-count" id="k-count-2">3</span>
+        </div>
+        <div class="kanban-cards-wrap" id="k-items-2"></div>
+      </div>
+
+      <!-- 3. Accepted & Ready to Bill -->
+      <div class="kanban-column" id="k-col-accepted">
+        <div class="kanban-col-header">
+          <span class="kanban-col-title">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--chart-series-2);"></span>
+            3. Ready to Bill
+          </span>
+          <span class="kanban-col-count" id="k-count-3">2</span>
+        </div>
+        <div class="kanban-cards-wrap" id="k-items-3"></div>
+      </div>
+
+      <!-- 4. Released & Invoiced -->
+      <div class="kanban-column" id="k-col-released">
+        <div class="kanban-col-header">
+          <span class="kanban-col-title">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--chart-series-6);"></span>
+            4. Cash Released
+          </span>
+          <span class="kanban-col-count" id="k-count-4">2</span>
+        </div>
+        <div class="kanban-cards-wrap" id="k-items-4"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Interactive Slide-Over Milestone Inspection Drawer -->
+  <div class="drawer-overlay" id="milestone-drawer" role="dialog" aria-modal="true" aria-label="Milestone Inspection Drawer">
+    <div class="drawer-content-box">
+      <div class="drawer-header">
+        <div>
+          <span id="drawer-code" style="font-family: var(--font-family-mono); font-size: 0.75rem; background: var(--color-slate-100); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border-color);">M-000</span>
+          <h4 id="drawer-title" style="font-size: 1.0625rem; font-weight: 700; margin: 4px 0 0 0; color: var(--text-primary);">Milestone Title</h4>
+        </div>
+        <button type="button" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);" id="btn-close-drawer" aria-label="Close Drawer">&times;</button>
+      </div>
+
+      <div class="drawer-body">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; padding: 0.75rem 1rem; background: var(--color-slate-50); border-radius: 8px; border: 1px solid var(--border-color);">
+          <div>
+            <div style="font-size: 0.6875rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Contract Value (INR)</div>
+            <div id="drawer-value" style="font-size: 1.25rem; font-weight: 800; color: var(--color-primary-700);">₹0</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 0.6875rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Client Enterprise</div>
+            <div id="drawer-client" style="font-size: 0.8125rem; font-weight: 600; color: var(--text-primary);">Client Name</div>
+          </div>
+        </div>
+
+        <h5 style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.5rem;">
+          4-Point Technical Readiness & Acceptance Checklist
+        </h5>
+        
+        <div class="checklist-container">
+          <label class="checklist-item">
+            <input type="checkbox" id="check-sast" checked>
+            <div>
+              <strong>1. Code Quality & Automated SAST Security Scan: PASS</strong>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">SonarQube & Veracode: 0 Critical / 0 High vulnerabilities.</div>
+            </div>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" id="check-uat" checked>
+            <div>
+              <strong>2. Functional Deliverable UAT Sign-Off: PASS</strong>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Signed off by Project Architect and QA Lead.</div>
+            </div>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" id="check-evidence" checked>
+            <div>
+              <strong>3. Delivery Artifact Evidence in Vault: PASS</strong>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Verification PDFs, test metrics, and audit hashes archived.</div>
+            </div>
+          </label>
+          <label class="checklist-item">
+            <input type="checkbox" id="check-client-sign">
+            <div>
+              <strong id="label-client-sign">4. Client Acceptance Digital Signature</strong>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Electronic sign-off from Client Enterprise Authority.</div>
+            </div>
+          </label>
+        </div>
+
+        <div style="font-size: 0.8125rem; background: var(--color-success-bg); border: 1px solid var(--color-success-border); border-radius: 8px; padding: 0.875rem; color: var(--color-success-text); margin-bottom: 1rem;">
+          <strong>Liquidity Impact upon Sign-Off:</strong>
+          <ul style="margin: 6px 0 0 1rem; padding: 0; font-size: 0.75rem; line-height: 1.5;">
+            <li>Immediate release to Billing Management for GST invoice dispatch.</li>
+            <li>Reduces Days Sales Outstanding (DSO) by an estimated 1.8 days.</li>
+            <li>Enables immediate liquidity draw without financing discount.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="drawer-footer">
+        <button type="button" class="action-btn-clean" id="btn-drawer-audit-pack">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download Audit Pack
+        </button>
+        <button type="button" class="action-btn-clean action-btn-primary" id="btn-drawer-approve">
+          ✓ Digital Sign-Off & Approve
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Layer -->
+  <div class="toast-box-layer" id="toast-container" aria-live="polite"></div>
+
+  <!-- ====================================================================
+       INTERACTIVE JAVASCRIPT CONTROLLER (INR ONLY)
+       ==================================================================== -->
+  <script src="data.js"></script>
+  <script src="overview.js"></script>
+</body>
+</html>

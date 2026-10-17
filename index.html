@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Admin Main Dashboard - Milestone Readiness, Acceptance & Liquidity Management System.">
+  <title>Admin Dashboard | Milestone Readiness, Acceptance & Liquidity</title>
+  
+  <!-- Bootstrap 5 CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+  <!-- Finnova Design System CSS -->
+  <link rel="stylesheet" href="core/css/base.css">
+  <link rel="stylesheet" href="core/css/components.css">
+  <link rel="stylesheet" href="core/css/layout.css">
+  <link rel="stylesheet" href="core/css/responsive.css">
+</head>
+<body>
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div id="sidebar-mobile-backdrop" class="sidebar-mobile-backdrop" aria-hidden="true"></div>
+
+  <div class="app-container">
+
+    <!-- ====================================================================
+         PERSISTENT SIDEBAR
+         ==================================================================== -->
+    <aside id="app-sidebar" class="app-sidebar" aria-label="Main Application Navigation">
+      
+      <!-- Brand Header -->
+      <div class="sidebar-brand">
+        <a href="#overview" class="brand-link" id="brand-home-link" title="Return to Overview">
+          <div class="brand-logo-icon">F</div>
+          <div class="brand-text">
+            <span class="brand-title">Finnova M-RAL</span>
+            <span class="brand-badge">Enterprise Platform</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navigation Links Container (Dynamically rendered from navigation.js) -->
+      <nav id="sidebar-nav-container" class="sidebar-nav-container" aria-label="Modules Navigation">
+        <!-- Rendered by window.FinnovaNavigation.renderSidebarNav() -->
+      </nav>
+
+      <!-- Sidebar User Footer -->
+      <div class="sidebar-footer">
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-avatar" id="sidebar-user-avatar" aria-hidden="true">EV</div>
+          <div class="sidebar-user-meta">
+            <span class="sidebar-user-name" id="sidebar-user-name">Eleanor Vance</span>
+            <span class="sidebar-user-role" id="sidebar-user-role">Administrator</span>
+          </div>
+        </div>
+        <button type="button" class="btn-icon-only" id="sidebar-logout-btn" title="Sign Out of Session" aria-label="Sign Out">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- ====================================================================
+         PERSISTENT TOP HEADER
+         ==================================================================== -->
+    <header id="app-header" class="app-header" role="banner">
+      
+      <div class="header-left">
+        <!-- Mobile & Desktop Sidebar Collapse Toggle -->
+        <button type="button" id="sidebar-toggle-btn" class="sidebar-toggle-btn" aria-label="Toggle navigation sidebar" title="Toggle Sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <!-- Current Page Title & Dynamic Breadcrumbs -->
+        <div class="header-title-box">
+          <h1 id="header-current-title" class="header-page-title">Overview & Liquidity Pulse</h1>
+          <nav aria-label="Breadcrumb">
+            <ol class="breadcrumb-nav">
+              <li class="breadcrumb-item"><a href="#overview">Admin</a></li>
+              <li class="breadcrumb-separator">/</li>
+              <li class="breadcrumb-item active" id="breadcrumb-current-module" aria-current="page">Overview</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+
+      <div class="header-right">
+        
+        <!-- Global Search UI with Ctrl+K trigger -->
+        <div class="header-search">
+          <svg class="header-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input 
+            type="search" 
+            id="global-search-input" 
+            class="form-control" 
+            placeholder="Search or Ctrl+K..." 
+            aria-label="Search modules or hit Ctrl+K"
+          >
+          <span class="header-search-badge" title="Press Ctrl + K to open Command Palette">Ctrl K</span>
+        </div>
+
+        <!-- Quick Switch to Client Portal -->
+        <a href="client/index.html" class="header-portal-btn" title="View Client Acceptance Portal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          <span>Client Portal</span>
+        </a>
+
+        <!-- Dark / Light Theme Toggle -->
+        <button type="button" class="header-icon-btn" id="btn-theme-toggle" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+          <svg id="theme-toggle-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <!-- Sprint 1 Architecture Guide Trigger -->
+        <button type="button" class="header-icon-btn" id="btn-show-help" title="Sprint 1 Developer & Architecture Guide" aria-label="System Guide">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </button>
+
+        <!-- Notifications Dropdown -->
+        <div class="dropdown-container">
+          <button type="button" class="header-icon-btn" id="btn-notifications" aria-label="Notifications" title="Notifications">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span id="notification-badge-count" class="notification-count-badge">3</span>
+          </button>
+
+          <!-- Notifications Popover Box -->
+          <div id="notifications-menu" class="dropdown-menu notification-menu" role="menu">
+            <div class="notification-header">
+              <span style="font-size: 0.8125rem; font-weight: 600; color: var(--text-primary);">System Alerts & Events</span>
+              <button type="button" id="btn-mark-all-read" class="btn btn-ghost btn-sm" style="font-size: 0.71875rem;">Mark all read</button>
+            </div>
+            <div id="notifications-list" class="notification-list">
+              <!-- Rendered via app.js from FINNOVA_MOCK_DATA.notifications -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Administrator Profile Menu -->
+        <div class="dropdown-container">
+          <button type="button" class="user-menu-btn" id="btn-user-menu" aria-label="User profile menu" aria-haspopup="true">
+            <div class="user-avatar-sm" id="header-user-avatar">EV</div>
+            <span class="user-name-text" id="header-user-name">Eleanor Vance</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+
+          <!-- User Dropdown Menu -->
+          <div id="user-menu-dropdown" class="dropdown-menu" style="min-width: 220px;" role="menu">
+            <div class="dropdown-header">Administrator Session</div>
+            <button type="button" class="dropdown-item" id="btn-view-profile">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              View Profile & Roles
+            </button>
+            <button type="button" class="dropdown-item" id="btn-reset-prototype-data">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+              Reset Prototype Data
+            </button>
+            <a href="client/index.html" class="dropdown-item" style="text-decoration: none;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              View Client Portal
+            </a>
+            <div class="dropdown-divider"></div>
+            <button type="button" class="dropdown-item danger" id="btn-logout-action">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+              Sign Out
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </header>
+
+    <!-- ====================================================================
+         MAIN CONTENT AREA (IFRAME HOST ARCHITECTURE)
+         ==================================================================== -->
+    <main id="app-main" class="app-main" role="main">
+      
+      <div class="module-frame-wrapper">
+        <!-- Module Loading Spinner Overlay -->
+        <div id="iframe-loader" class="iframe-loading-overlay">
+          <div class="loader-card">
+            <svg class="spin" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary-600)" stroke-width="2.5">
+              <line x1="12" y1="2" x2="12" y2="6"></line>
+              <line x1="12" y1="18" x2="12" y2="22"></line>
+              <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+              <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+              <line x1="2" y1="12" x2="6" y2="12"></line>
+              <line x1="18" y1="12" x2="22" y2="12"></line>
+              <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+              <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+            </svg>
+            <span>Loading Module Workspace...</span>
+          </div>
+        </div>
+
+        <!-- Iframe Element: Business modules are loaded here seamlessly -->
+        <iframe 
+          id="module-frame" 
+          name="module-frame" 
+          class="module-iframe" 
+          src="modules/overview/index.html" 
+          title="Finnova Business Module Workspace"
+          loading="eager"
+        ></iframe>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ====================================================================
+       APPLICATION MODALS
+       ==================================================================== -->
+
+  <!-- Profile Details Modal -->
+  <div id="modal-profile-details" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="profile-modal-title" class="modal-title">Administrator Profile</h3>
+        <button type="button" class="modal-close" onclick="window.FinnovaApp.closeModal('modal-profile-details')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+          <div style="width: 52px; height: 52px; border-radius: 50%; background: var(--color-primary-700); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: bold;">
+            EV
+          </div>
+          <div>
+            <h4 id="modal-prof-name" style="font-size: 1.125rem; font-weight: 600; color: var(--text-primary);">Eleanor Vance</h4>
+            <div id="modal-prof-email" style="font-size: 0.8125rem; color: var(--text-muted); font-family: var(--font-family-mono);">admin@finnova.io</div>
+          </div>
+        </div>
+        <table class="table" style="font-size: 0.8125rem;">
+          <tbody>
+            <tr>
+              <td style="color: var(--text-muted); width: 35%;">Organization</td>
+              <td id="modal-prof-org" style="font-weight: 500;">Finnova Global Solutions Ltd.</td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-muted);">Assigned Role</td>
+              <td id="modal-prof-role"></td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-muted);">Account Status</td>
+              <td id="modal-prof-status"></td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-muted);">Security Scope</td>
+              <td>Full Project-to-Cash Suite Access</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.FinnovaApp.closeModal('modal-profile-details')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Confirmation Modal -->
+  <div id="modal-logout-confirm" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="logout-title">
+    <div class="modal-dialog" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 id="logout-title" class="modal-title">Sign Out of Admin Session?</h3>
+        <button type="button" class="modal-close" onclick="window.FinnovaApp.closeModal('modal-logout-confirm')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to end your current administrator session?</p>
+        <p class="text-xs text-muted" style="margin-top: 6px;">Your prototype demo data in browser storage will remain intact.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.FinnovaApp.closeModal('modal-logout-confirm')">Cancel</button>
+        <button type="button" class="btn btn-danger" id="btn-confirm-logout">Sign Out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reset Prototype Data Modal -->
+  <div id="modal-reset-confirm" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <div class="modal-dialog" style="max-width: 460px;">
+      <div class="modal-header" style="background-color: var(--color-warning-bg);">
+        <h3 id="reset-title" class="modal-title" style="color: var(--color-warning-text);">Reset Demonstration Data</h3>
+        <button type="button" class="modal-close" onclick="window.FinnovaApp.closeModal('modal-reset-confirm')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 0.5rem;">This will clear any newly registered demo accounts and restore original factory test records.</p>
+        <p class="text-xs text-muted">Use this when you want to return to a clean testing state for review.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.FinnovaApp.closeModal('modal-reset-confirm')">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btn-confirm-reset">Reset to Defaults</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Developer & Architecture Guide Modal -->
+  <div id="modal-help-guide" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="guide-title">
+    <div class="modal-dialog" style="max-width: 640px;">
+      <div class="modal-header">
+        <h3 id="guide-title" class="modal-title">Sprint 1 Master Architecture Guide</h3>
+        <button type="button" class="modal-close" onclick="window.FinnovaApp.closeModal('modal-help-guide')">&times;</button>
+      </div>
+      <div class="modal-body" style="max-height: 480px; overflow-y: auto;">
+        <div style="background-color: var(--color-primary-50); border: 1px solid var(--color-primary-200); border-radius: var(--border-radius-md); padding: 0.875rem; margin-bottom: 1rem;">
+          <h4 style="font-size: 0.875rem; font-weight: 600; color: var(--color-primary-800); margin-bottom: 4px;">For 12-Developer Distributed Team:</h4>
+          <p style="font-size: 0.8125rem; color: var(--color-primary-900); line-height: 1.45;">
+            The master dashboard provides a persistent shell. To build any of the 13 remaining business modules in Sprint 2 without modifying this shell, follow the 3-step workflow below.
+          </p>
+        </div>
+        <h5 style="font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">How to Add a Business Module:</h5>
+        <ol style="font-size: 0.8125rem; line-height: 1.6; padding-left: 1.25rem; margin-bottom: 1rem;">
+          <li>Copy <code>modules/_template/</code> to <code>modules/&lt;module-id&gt;/</code></li>
+          <li>Rename <code>module.js</code> and <code>module.css</code> to <code>&lt;module-id&gt;.js</code> and <code>&lt;module-id&gt;.css</code>.</li>
+          <li>Edit <code>modules/&lt;module-id&gt;/module.config.js</code> to set status to <code>ready</code> and path to your page. Done: zero changes to core files!</li>
+        </ol>
+        <p style="font-size: 0.75rem; color: var(--text-muted);">
+          Master shell files (<code>index.html</code>, <code>core/js/shell/*</code>) are owned by the Master Framework Maintainer.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="window.FinnovaApp.closeModal('modal-help-guide')">Got It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spotlight Command Palette Modal (Ctrl + K) -->
+  <div id="modal-command-palette" class="spotlight-backdrop" role="dialog" aria-modal="true" aria-label="Command Center">
+    <div class="spotlight-card">
+      <div class="spotlight-header">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary-600)" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="text" 
+          id="spotlight-input" 
+          class="spotlight-search-input" 
+          placeholder="Type a command, search modules, or inspect data..." 
+          autocomplete="off"
+        >
+        <span class="spotlight-kbd-badge">ESC to close</span>
+      </div>
+      <div id="spotlight-results" class="spotlight-results-list">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+      <div class="spotlight-footer">
+        <div style="display: flex; gap: 12px;">
+          <span><span class="spotlight-kbd-badge">↑</span> <span class="spotlight-kbd-badge">↓</span> Navigate</span>
+          <span><span class="spotlight-kbd-badge">↵</span> Select</span>
+        </div>
+        <span>Finnova Command Spotlight</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container Placeholder -->
+  <div id="app-toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Core Data Services -->
+  <script src="core/js/data/shell-data.js"></script>
+  <script src="core/js/data/storage.js"></script>
+
+  <!-- Core Services -->
+  <script src="core/js/services/validation.js"></script>
+  <script src="core/js/services/permissions.js"></script>
+  <script src="core/js/services/auth.js"></script>
+
+  <!-- Module Registry Loader -->
+  <script src="modules/_registry.js"></script>
+
+  <!-- Shell Navigation & Application Orchestration -->
+  <script src="core/js/shell/navigation.js"></script>
+  <script src="core/js/shell/app.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Initialize master application shell
+      window.FinnovaApp.init();
+
+      // Help guide trigger
+      const helpBtn = document.getElementById("btn-show-help");
+      if (helpBtn) {
+        helpBtn.addEventListener("click", () => {
+          window.FinnovaApp.openModal("modal-help-guide");
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,519 @@
+/* ==========================================================================
+   Finnova M-RAL Design System - Authentication Styles
+   Clean & Professional Enterprise Standard Login & Registration
+   Calm, Trustworthy, Data-Dense Executive Fintech Look
+   ========================================================================== */
+
+/* Full Page Container */
+.auth-body {
+  background-color: var(--bg-app);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem;
+  font-family: var(--font-family-base);
+  color: var(--text-primary);
+}
+
+/* Brand Header / Panel */
+.auth-brand-masthead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-brand-logo-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-primary-600);
+  color: var(--text-inverse);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 0.75rem;
+}
+
+.auth-brand-name {
+  font-size: var(--font-size-page-title);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.auth-brand-tagline {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-top: 3px;
+  font-weight: var(--font-weight-regular);
+  max-width: 360px;
+}
+
+/* Desktop Split Layout (Deep Navy Brand Panel on left, Clean Form on right) */
+@media (min-width: 960px) {
+  .auth-body {
+    display: grid;
+    grid-template-columns: 440px 1fr;
+    padding: 0;
+    align-items: stretch;
+    justify-content: stretch;
+    min-height: 100vh;
+  }
+
+  .auth-brand-masthead {
+    background-color: var(--color-sidebar-bg);
+    border-right: 1px solid var(--color-sidebar-divider);
+    color: var(--color-sidebar-text);
+    padding: 4rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: 0;
+    position: relative;
+    background-image: radial-gradient(circle at 1px 1px, rgba(201, 213, 238, 0.08) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  .auth-brand-masthead::after {
+    content: "Enterprise Project-to-Cash Governance\A• Milestone Readiness Gates\A• Formal Acceptance Verification\A• 13-Week Liquidity Forecasting";
+    white-space: pre-line;
+    display: block;
+    margin-top: 3rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--color-sidebar-text-muted);
+    line-height: 2;
+    border-top: 1px solid var(--color-sidebar-divider);
+    padding-top: 1.5rem;
+  }
+
+  .auth-brand-name {
+    color: var(--text-inverse);
+    font-size: 1.875rem;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .auth-brand-tagline {
+    color: var(--color-sidebar-text);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    max-width: 340px;
+  }
+
+  .auth-card {
+    margin: auto;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+  }
+
+  .auth-page-subtext {
+    position: fixed;
+    bottom: 1.25rem;
+    right: 2rem;
+    margin: 0;
+  }
+}
+
+/* Main Auth Card */
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 2.25rem 2rem;
+  position: relative;
+}
+
+.auth-card.auth-card-wide {
+  max-width: 560px;
+}
+
+/* Card Header */
+.auth-card-header {
+  margin-bottom: 1.75rem;
+  text-align: left;
+}
+
+.auth-card-title {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.auth-card-subtitle {
+  font-size: var(--font-size-body);
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Alert Notification Banner */
+.auth-alert-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 0.75rem 0.875rem;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  line-height: 1.4;
+  margin-bottom: 1.25rem;
+  animation: fadeInDown var(--transition-fast);
+}
+
+.auth-alert-banner.alert-danger {
+  background-color: var(--color-danger-bg);
+  border: 1px solid var(--color-danger-border);
+  color: var(--color-danger);
+}
+
+.auth-alert-banner.alert-warning {
+  background-color: var(--color-warning-bg);
+  border: 1px solid var(--color-warning-border);
+  color: var(--color-warning);
+}
+
+.auth-alert-banner.alert-info {
+  background-color: var(--color-info-bg);
+  border: 1px solid var(--color-info-border);
+  color: var(--color-info);
+}
+
+/* Form Groups & Inputs */
+.form-group-clean {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.form-label-text {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+}
+
+.form-label-text .req {
+  color: var(--color-danger);
+  margin-left: 2px;
+}
+
+.form-link {
+  font-size: var(--font-size-xs);
+  color: var(--color-primary-600);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.form-link:hover {
+  color: var(--color-primary-700);
+  text-decoration: none;
+}
+
+/* Input with Left Icon & Right Action */
+.input-field-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-field-icon {
+  position: absolute;
+  left: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-clean {
+  width: 100%;
+  height: 40px;
+  padding: 0 0.875rem 0 2.5rem;
+  font-size: var(--font-size-body);
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color-strong);
+  border-radius: var(--border-radius-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.input-clean.has-trailing-btn {
+  padding-right: 2.75rem;
+}
+
+.input-clean:hover {
+  border-color: var(--text-muted);
+}
+
+.input-clean:focus {
+  outline: none;
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px rgba(58, 103, 214, 0.15);
+}
+
+.input-clean.is-invalid {
+  border-color: var(--color-danger);
+}
+
+.input-clean.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
+}
+
+.input-clean.is-valid {
+  border-color: var(--color-success);
+}
+
+.trailing-toggle-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.trailing-toggle-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-surface-subtle);
+}
+
+.field-error-msg {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+  margin-top: 0.35rem;
+  font-weight: var(--font-weight-medium);
+}
+
+/* Checkbox Row */
+.remember-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.35rem;
+  user-select: none;
+}
+
+.clean-checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--border-radius-xs);
+  border: 1px solid var(--border-color-strong);
+  accent-color: var(--color-primary-600);
+  cursor: pointer;
+}
+
+.clean-checkbox-label {
+  font-size: var(--font-size-body);
+  color: var(--text-secondary);
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+/* Primary Button */
+.btn-auth-primary {
+  width: 100%;
+  height: 40px;
+  background-color: var(--color-primary-600);
+  color: var(--text-inverse);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--border-radius-sm);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: var(--shadow-xs);
+  transition: background-color var(--transition-fast);
+}
+
+.btn-auth-primary:hover {
+  background-color: var(--color-primary-700);
+}
+
+.btn-auth-primary:active {
+  background-color: var(--color-primary-800);
+}
+
+.btn-auth-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Subtle Demo Quick Sign-in Section */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0 1rem 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: var(--font-weight-medium);
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-color);
+}
+
+.auth-divider span {
+  padding: 0 0.75rem;
+}
+
+.demo-chips-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+
+.demo-chip-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 0.75rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color-strong);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-secondary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.demo-chip-btn:hover {
+  background-color: var(--bg-surface-subtle);
+  border-color: var(--border-color-strong);
+  color: var(--text-primary);
+}
+
+/* Card Bottom Footer */
+.auth-card-footer {
+  text-align: center;
+  font-size: var(--font-size-body);
+  color: var(--text-muted);
+  margin-top: 1.25rem;
+}
+
+.auth-card-footer a {
+  color: var(--color-primary-600);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+.auth-card-footer a:hover {
+  color: var(--color-primary-700);
+  text-decoration: none;
+}
+
+/* Bottom Page Advisory */
+.auth-page-subtext {
+  margin-top: 1.75rem;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.4;
+  max-width: 440px;
+}
+
+/* Password Requirements Checklist */
+.password-requirements-card {
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: 0.75rem 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.req-card-title {
+  font-size: 0.6875rem;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.req-items-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.clean-req-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  transition: color var(--transition-fast);
+}
+
+.clean-req-item svg {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.clean-req-item.met {
+  color: var(--color-success);
+  font-weight: var(--font-weight-medium);
+}
+
+.clean-req-item.met svg {
+  color: var(--color-success);
+}
+
+@media (max-width: 520px) {
+  .auth-card {
+    padding: 1.75rem 1.25rem;
+    border-radius: var(--border-radius-lg);
+  }
+  .demo-chips-grid {
+    grid-template-columns: 1fr;
+  }
+}

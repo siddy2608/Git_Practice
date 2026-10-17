@@ -1,0 +1,73 @@
+/**
+ * Finnova M-RAL - Module Stylesheet Template
+ * 
+ * All classes should be scoped to this module to prevent style bleed.
+ * Design system tokens from core/css/base.css are inherited automatically.
+ */
+
+body {
+  background-color: transparent;
+  padding: var(--space-6) var(--space-6) var(--space-8) var(--space-6);
+  font-family: var(--font-family-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+.template-workspace {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.template-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.template-title-group .template-title {
+  font-size: var(--font-size-page-title);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 4px 0;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.template-subtitle {
+  font-size: var(--font-size-body);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.template-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: var(--space-4);
+  }
+
+  .template-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .template-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
